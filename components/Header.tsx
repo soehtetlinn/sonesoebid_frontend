@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { UserRole } from '../types';
 import { isAdmin } from '../utils/roleUtils';
@@ -18,6 +18,20 @@ const Header: React.FC = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const { cart } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const auth = params.get('auth');
+    if (auth === 'login') setLoginModalOpen(true);
+    if (auth === 'signup') setSignUpModalOpen(true);
+  }, [location]);
+
+  const clearAuthQuery = () => {
+    if (location.search) {
+      navigate(location.pathname, { replace: true });
+    }
+  };
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,9 +74,8 @@ const Header: React.FC = () => {
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center space-x-4">
               <ThemeToggle />
-              <Link to="/products" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">
-                All Products
-              </Link>
+              <Link to="/products" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">Listings</Link>
+              <Link to="/news" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">News</Link>
               {isAuthenticated && user ? (
                 <>
                   <NotificationBell />
@@ -143,7 +156,7 @@ const Header: React.FC = () => {
               <div>
                 <p className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">Browse</p>
                 <div className="flex items-center gap-4 flex-wrap">
-                  <Link to="/products" onClick={()=>setMobileMenuOpen(false)} className="text-gray-700 dark:text-gray-200">All Products</Link>
+                  <Link to="/products" onClick={()=>setMobileMenuOpen(false)} className="text-gray-700 dark:text-gray-200">Listings</Link>
                 </div>
               </div>
               <div>
@@ -173,8 +186,8 @@ const Header: React.FC = () => {
           </div>
         )}
       </header>
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setLoginModalOpen(false)} onSwitchToSignUp={() => { setLoginModalOpen(false); setSignUpModalOpen(true); }} />
-      <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setSignUpModalOpen(false)} onSwitchToLogin={() => { setSignUpModalOpen(false); setLoginModalOpen(true); }} />
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => { setLoginModalOpen(false); clearAuthQuery(); }} onSwitchToSignUp={() => { setLoginModalOpen(false); setSignUpModalOpen(true); }} />
+      <SignUpModal isOpen={isSignUpModalOpen} onClose={() => { setSignUpModalOpen(false); clearAuthQuery(); }} onSwitchToLogin={() => { setSignUpModalOpen(true); setLoginModalOpen(true); }} />
     </>
   );
 };

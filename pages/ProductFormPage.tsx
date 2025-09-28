@@ -90,7 +90,7 @@ const ProductFormPage: React.FC = () => {
   return (
     <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
-        {isEditMode ? 'Edit Product' : 'Add New Product'}
+        {isEditMode ? 'Edit Listing' : 'Make a Listing'}
       </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>

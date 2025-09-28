@@ -874,3 +874,60 @@ export const api = {
       return MOCK_DISPUTES.filter(d => d.userId === userId);
   }
 };
+
+// News & Ads minimal client
+export const contentApi = {
+  // Public
+  getNews: async (): Promise<any[]> => {
+    try { return await http<any[]>(`/api/news`); } catch { return []; }
+  },
+  getNewsBySlug: async (slug: string): Promise<any | null> => {
+    try { return await http<any>(`/api/news/${slug}`); } catch { return null; }
+  },
+  getAds: async (): Promise<any[]> => {
+    try { return await http<any[]>(`/api/ads`); } catch { return []; }
+  },
+  trackImpression: async (id: string): Promise<void> => {
+    try { await http(`/api/ads/${id}/impression`, { method: 'POST' }); } catch {}
+  },
+  trackClick: async (id: string): Promise<void> => {
+    try { await http(`/api/ads/${id}/click`, { method: 'POST' }); } catch {}
+  },
+  // Admin
+  admin: {
+    listNews: async (): Promise<any[]> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any[]>(`/api/admin/news`, { headers: { 'Authorization': `Bearer ${token}` } });
+    },
+    createNews: async (data: any): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/news`, { method: 'POST', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    updateNews: async (id: string, data: any): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/news/${id}`, { method: 'PATCH', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    deleteNews: async (id: string): Promise<boolean> => {
+      const token = localStorage.getItem('auth_token') || '';
+      await http(`/api/admin/news/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      return true;
+    },
+    listAds: async (): Promise<any[]> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any[]>(`/api/admin/ads`, { headers: { 'Authorization': `Bearer ${token}` } });
+    },
+    createAd: async (data: any): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/ads`, { method: 'POST', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    updateAd: async (id: string, data: any): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/ads/${id}`, { method: 'PATCH', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    deleteAd: async (id: string): Promise<boolean> => {
+      const token = localStorage.getItem('auth_token') || '';
+      await http(`/api/admin/ads/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      return true;
+    }
+  }
+};

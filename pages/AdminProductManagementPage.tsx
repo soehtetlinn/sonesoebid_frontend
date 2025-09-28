@@ -44,7 +44,7 @@ const AdminProductManagementPage: React.FC = () => {
       <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Product Management (All)</h1>
         <Link to="/dashboard/product/new" className="bg-brand-green text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">
-          Add New Product
+            Make a Listing
         </Link>
       </div>
 

@@ -62,6 +62,20 @@ const AdminDashboardPage: React.FC = () => {
               Go to User Management
             </Link>
           </div>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700 md:col-span-2">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">News (Content)</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">Publish announcements, tips, and platform updates.</p>
+            <Link to="/admin/news" className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700">
+              Go to News Management
+            </Link>
+          </div>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Advertising</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">Manage banner placements and external sponsor links.</p>
+            <Link to="/admin/ads" className="bg-amber-600 text-white font-semibold py-2 px-4 rounded hover:bg-amber-700">
+              Go to Advertising
+            </Link>
+          </div>
       </div>
     </div>
   );
