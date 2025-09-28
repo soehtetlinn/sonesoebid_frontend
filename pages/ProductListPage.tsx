@@ -12,6 +12,8 @@ const useQuery = () => {
 const ProductListPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const pageSize = 12;
   const query = useQuery();
   const searchTerm = query.get('q');
   
@@ -82,18 +84,25 @@ const ProductListPage: React.FC = () => {
       {/* Product Grid */}
       <main className="w-full md:w-3/4 lg:w-4/5">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
-          {searchTerm ? `Search results for "${searchTerm}"` : 'All Products'}
+          {searchTerm ? `Search results for "${searchTerm}"` : 'Listings'}
         </h1>
         {loading ? (
           <Spinner />
         ) : (
           <>
             {products.length > 0 ? (
+                <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {products.map((product) => (
+                    {products.slice((page-1)*pageSize, page*pageSize).map((product) => (
                     <ProductCard key={product.id} product={product} />
                     ))}
                 </div>
+                <div className="flex items-center justify-center gap-2 mt-8">
+                  <button onClick={() => setPage(p => Math.max(1, p-1))} disabled={page===1} className="px-3 py-1 border rounded disabled:opacity-50">Prev</button>
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Page {page} of {Math.max(1, Math.ceil(products.length / pageSize))}</span>
+                  <button onClick={() => setPage(p => Math.min(Math.max(1, Math.ceil(products.length / pageSize)), p+1))} disabled={page===Math.max(1, Math.ceil(products.length / pageSize))} className="px-3 py-1 border rounded disabled:opacity-50">Next</button>
+                </div>
+                </>
             ) : (
                 <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg">
                     <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200">No products found.</h2>

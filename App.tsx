@@ -27,6 +27,10 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import CartPage from './pages/CartPage';
 import MessagingPage from './pages/MessagingPage';
 import DisputeCenterPage from './pages/DisputeCenterPage';
+import AdminNewsPage from './pages/AdminNewsPage';
+import AdminAdsPage from './pages/AdminAdsPage';
+import NewsListPage from './pages/NewsListPage';
+import NewsDetailPage from './pages/NewsDetailPage';
 
 
 const PageLayout: React.FC = () => {
@@ -41,6 +45,8 @@ const PageLayout: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductListPage />} />
+          <Route path="/news" element={<NewsListPage />} />
+          <Route path="/news/:slug" element={<NewsDetailPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/user/:userId" element={<UserProfilePage />} />
           <Route path="/cart" element={<CartPage />} />
@@ -58,6 +64,8 @@ const PageLayout: React.FC = () => {
           <Route path="/admin/users" element={<AdminUserManagementPage />} />
           <Route path="/admin/products" element={<AdminProductManagementPage />} />
           <Route path="/admin/categories" element={<AdminCategoryManagementPage />} />
+          <Route path="/admin/news" element={<AdminNewsPage />} />
+          <Route path="/admin/ads" element={<AdminAdsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

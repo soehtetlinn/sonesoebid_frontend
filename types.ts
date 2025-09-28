@@ -160,3 +160,34 @@ export interface Dispute {
     status: DisputeStatus;
     createdAt: string;
 }
+
+// Content types
+export interface NewsItem {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  content: string;
+  imageUrl?: string;
+  published: boolean;
+  publishedAt?: string;
+  authorId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdItem {
+  id: string;
+  title: string;
+  advertiser?: string;
+  imageUrl?: string;
+  targetUrl: string;
+  placement: string;
+  isActive: boolean;
+  startDate?: string;
+  endDate?: string;
+  impressions: number;
+  clicks: number;
+  createdAt: string;
+  updatedAt: string;
+}
