@@ -1,9 +1,14 @@
 import { Product, User, UserRole, Bid, Notification, NotificationType, Order, OrderStatus, Review, Condition, ListingType, CartItem, Conversation, Message, Dispute, DisputeStatus } from '../types';
 
-const API_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:4000';
+const API_URL = 'http://128.199.69.100:4000';
+console.log('API_URL loaded:', API_URL);
+console.log('Environment VITE_API_URL:', (import.meta as any).env?.VITE_API_URL);
+console.log('Build timestamp:', new Date().toISOString());
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, { headers: { 'Content-Type': 'application/json' }, ...init });
+  const fullUrl = `${API_URL}${path}`;
+  console.log('Making API call Something to:', fullUrl);
+  const res = await fetch(fullUrl, { headers: { 'Content-Type': 'application/json' }, ...init });
   if (!res.ok) throw new Error(await res.text().catch(() => res.statusText));
   return res.json();
 }
