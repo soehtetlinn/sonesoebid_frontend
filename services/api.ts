@@ -1,13 +1,13 @@
 import { Product, User, UserRole, Bid, Notification, NotificationType, Order, OrderStatus, Review, Condition, ListingType, CartItem, Conversation, Message, Dispute, DisputeStatus } from '../types';
 
-const API_URL = 'http://128.199.69.100:4000';
+const API_URL: string = ((import.meta as any).env?.VITE_API_URL as string) || '';
 console.log('API_URL loaded:', API_URL);
 console.log('Environment VITE_API_URL:', (import.meta as any).env?.VITE_API_URL);
 console.log('Build timestamp:', new Date().toISOString());
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const fullUrl = `${API_URL}${path}`;
-  console.log('Making API call to:', fullUrl);
+  console.log('Making API something call to:', fullUrl);
   const res = await fetch(fullUrl, { headers: { 'Content-Type': 'application/json' }, ...init });
   if (!res.ok) throw new Error(await res.text().catch(() => res.statusText));
   return res.json();
@@ -766,10 +766,9 @@ export const api = {
 
   // Realtime helpers (Socket.IO)
   socketConnect: () => {
-    if (!API_URL) return null;
     // dynamic import from importmap
     // @ts-ignore
-    return import('socket.io-client').then(mod => mod.io(API_URL));
+    return import('socket.io-client').then(mod => (API_URL ? mod.io(API_URL) : mod.io()));
   },
 
   // Read receipts
