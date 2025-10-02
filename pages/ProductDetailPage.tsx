@@ -124,9 +124,11 @@ const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="product-grid">
         <div>
-          <img src={product.imageUrl} alt={product.title} className="w-full h-auto rounded-lg shadow-md" />
+          <div className="ui-card" style={{ padding: 12 }}>
+            <img src={product.imageUrl} alt={product.title} className="w-full h-auto rounded-lg" />
+          </div>
         </div>
 
         <div>
@@ -147,19 +149,20 @@ const ProductDetailPage: React.FC = () => {
                <span>Location: <span className="font-semibold">{product.location}</span></span>
            </div>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">{product.description}</p>
-          
-          <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg border border-gray-200 dark:border-gray-600">
+
+          <div className="sticky-right ui-card" style={{ padding: 16 }}>
             {isAuction && (
-            <div className="flex justify-between items-center mb-4">
+              <div className="auction-urgent" style={{ marginBottom: 12 }}>
                 <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">Current Bid</p>
-                    <p className="text-3xl font-bold text-gray-900 dark:text-white">${product.currentPrice.toFixed(2)}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">({product.bids.length} bids)</p>
+                  <div className="label">Current Bid</div>
+                  <div className="price">${product.currentPrice.toFixed(2)}</div>
                 </div>
-                <div className="text-right text-brand-red font-semibold">
-                    <CountdownTimer endDate={product.endDate} />
+                <div className="divider" />
+                <div>
+                  <div className="label">Ends In</div>
+                  <div className="time"><CountdownTimer endDate={product.endDate} /></div>
                 </div>
-            </div>
+              </div>
             )}
             
             {error && <p className="text-sm text-brand-red mb-2">{error}</p>}
@@ -175,7 +178,7 @@ const ProductDetailPage: React.FC = () => {
                     <div className="flex items-center space-x-2">
                         <span className="text-lg font-semibold">$</span>
                         <input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} placeholder={`min $${minBid.toFixed(2)}`} step="1.00" min={minBid} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-500 rounded-md focus:outline-none focus:border-brand-blue dark:bg-gray-800" disabled={!isAuthenticated || isSubmitting}/>
-                        <button type="submit" disabled={!isAuthenticated || isSubmitting} className="px-8 py-3 bg-brand-blue text-white font-bold rounded-md hover:bg-blue-700 disabled:bg-gray-400">
+                        <button type="submit" disabled={!isAuthenticated || isSubmitting} className="ui-btn ui-btn-cta" style={{ width:'auto' }}>
                             {isSubmitting ? 'Placing...' : 'Place Bid'}
                         </button>
                     </div>
@@ -184,9 +187,9 @@ const ProductDetailPage: React.FC = () => {
             ) : ( // Fixed Price
               <div>
                   <p className="text-3xl font-bold text-gray-900 dark:text-white mb-4">${product.currentPrice.toFixed(2)}</p>
-                  <div className="flex items-center space-x-2">
-                     <button onClick={handleAddToCart} disabled={!isAuthenticated || isSubmitting} className="flex-1 py-3 bg-brand-yellow text-black font-bold rounded-md hover:opacity-90 disabled:bg-gray-400">Add to Cart</button>
-                     <button onClick={handleBuyNow} disabled={!isAuthenticated || isSubmitting} className="flex-1 py-3 bg-brand-green text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-400">Buy It Now</button>
+                  <div className="flex items-center gap-2">
+                    <button onClick={handleAddToCart} disabled={!isAuthenticated || isSubmitting} className="ui-btn ui-btn-primary" style={{ flex:1 }}>Add to Cart</button>
+                    <button onClick={handleBuyNow} disabled={!isAuthenticated || isSubmitting} className="ui-btn ui-btn-cta" style={{ flex:1 }}>Buy It Now</button>
                   </div>
               </div>
             )}
@@ -194,7 +197,7 @@ const ProductDetailPage: React.FC = () => {
             {product.buyNowPrice && isAuction && isAuctionActive && (
                  <>
                     <div className="my-4 flex items-center"><div className="flex-grow border-t dark:border-gray-600"></div><span className="mx-4 text-gray-500">or</span><div className="flex-grow border-t dark:border-gray-600"></div></div>
-                    <button onClick={handleBuyNow} disabled={!isAuthenticated || isSubmitting} className="w-full py-3 bg-brand-green text-white font-bold rounded-md hover:bg-green-700 disabled:bg-gray-400">
+                    <button onClick={handleBuyNow} disabled={!isAuthenticated || isSubmitting} className="ui-btn ui-btn-cta" style={{ width:'100%' }}>
                         {isSubmitting ? 'Processing...' : `Buy It Now for $${product.buyNowPrice.toFixed(2)}`}
                     </button>
                  </>

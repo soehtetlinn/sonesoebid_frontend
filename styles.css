@@ -1,0 +1,39 @@
+:root{
+  --color-primary:#0A346C; /* Deep Royal Blue */
+  --color-secondary:#1A1A1A; /* Charcoal */
+  --color-bg:#FFFFFF; /* Pristine White */
+  --color-accent:#FF6600; /* Vibrant Orange */
+
+  --radius:12px;
+  --shadow:0 8px 24px rgba(0,0,0,0.08);
+  --shadow-hover:0 12px 30px rgba(0,0,0,0.12);
+  --max-readable:780px;
+}
+
+body{ background:var(--color-bg); color:var(--color-secondary); }
+
+.ui-btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border-radius:10px; font-weight:700; cursor:pointer; transition:.2s ease; border:2px solid transparent; box-shadow:var(--shadow); }
+.ui-btn:hover{ transform:translateY(-1px) scale(1.01); box-shadow:var(--shadow-hover); }
+.ui-btn-cta{ background:var(--color-accent); color:#fff; }
+.ui-btn-primary{ background:var(--color-primary); color:#fff; }
+.ui-btn-outline{ background:#fff; border-color:var(--color-primary); color:var(--color-primary); }
+
+.ui-card{ background:#fff; border:1px solid rgba(10,52,108,.10); border-radius:var(--radius); box-shadow:var(--shadow); }
+.ui-card-hover:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+
+.ui-article{ width:100%; max-width:var(--max-readable); margin:0 auto; }
+
+/* Product / Auction layout */
+.product-grid{ display:grid; grid-template-columns: 60% 40%; gap:24px; align-items:start; }
+.sticky-right{ position:sticky; top:16px; }
+@media (max-width: 900px){ .product-grid{ grid-template-columns: 1fr; } .sticky-right{ position:static; } }
+
+/* Auction urgent block */
+.auction-urgent{ display:flex; align-items:center; justify-content:space-between; gap:16px; background:var(--color-accent); color:#fff; border-radius:12px; padding:14px 16px; box-shadow:var(--shadow); }
+.auction-urgent .label{ font-size:12px; text-transform:uppercase; opacity:.9; letter-spacing:.5px; }
+.auction-urgent .price{ font-size:28px; font-weight:800; line-height:1; }
+.auction-urgent .time{ font-size:22px; font-weight:800; letter-spacing:.5px; }
+.auction-urgent .divider{ width:1px; height:36px; background:rgba(255,255,255,.45); }
+@media (max-width: 900px){ .auction-urgent{ flex-direction:column; align-items:flex-start; } .auction-urgent .divider{ display:none; } }
+
+

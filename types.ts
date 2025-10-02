@@ -172,8 +172,19 @@ export interface NewsItem {
   published: boolean;
   publishedAt?: string;
   authorId: number;
+  author?: {
+    id: number;
+    username: string;
+    firstName?: string;
+    lastName?: string;
+  };
+  category?: { id: string; name: string } | null;
+  categoryId?: string | null;
   createdAt: string;
   updatedAt: string;
+  imageIds?: string[];
+  videoIds?: string[]; // Deprecated shorthand
+  videos?: { id: string; youtubeId: string }[];
 }
 
 export interface AdItem {

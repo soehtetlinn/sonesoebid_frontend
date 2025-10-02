@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { NotificationProvider } from './contexts/NotificationContext';
@@ -19,7 +19,6 @@ import ProductFormPage from './pages/ProductFormPage';
 import AdminUserManagementPage from './pages/AdminUserManagementPage';
 import AdminProductManagementPage from './pages/AdminProductManagementPage';
 import AdminCategoryManagementPage from './pages/AdminCategoryManagementPage';
-import BackButton from './components/BackButton';
 import UserNotificationsPage from './pages/UserNotificationsPage';
 import WatchListPage from './pages/WatchListPage';
 import UserProfilePage from './pages/UserProfilePage';
@@ -34,14 +33,10 @@ import NewsDetailPage from './pages/NewsDetailPage';
 
 
 const PageLayout: React.FC = () => {
-  const location = useLocation();
-  const showBackButton = location.pathname !== '/';
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        {showBackButton && <BackButton />}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductListPage />} />

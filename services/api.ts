@@ -445,6 +445,10 @@ export const api = {
     const userReviews = MOCK_REVIEWS.filter(r => r.revieweeId === userId);
     return { ...user, reviews: userReviews };
   },
+  getUserStats: async (userId: number): Promise<{ activeBids: number; itemsWon: number; watching: number }> => {
+    const token = localStorage.getItem('auth_token') || '';
+    return await http<{ activeBids: number; itemsWon: number; watching: number }>(`/api/users/${userId}/stats`, { headers: { 'Authorization': `Bearer ${token}` } });
+  },
   updateUserProfile: async(userId: number, data: Partial<User>): Promise<User | null> => {
       if (API_URL) {
         try {
@@ -885,9 +889,18 @@ export const contentApi = {
   getNews: async (): Promise<any[]> => {
     try { return await http<any[]>(`/api/news`); } catch { return []; }
   },
+  searchNews: async (q?: string, categoryId?: string): Promise<any[]> => {
+    const params = new URLSearchParams();
+    if (q) params.set('q', q);
+    if (categoryId) params.set('categoryId', categoryId);
+    try { return await http<any[]>(`/api/news?${params.toString()}`); } catch { return []; }
+  },
   getNewsBySlug: async (slug: string): Promise<any | null> => {
     try { return await http<any>(`/api/news/${slug}`); } catch { return null; }
   },
+  getNewsImageUrl: (imageId: string): string => `${API_URL}/api/news-images/${imageId}`,
+  getYouTubeEmbedUrl: (youtubeId: string): string => `https://www.youtube.com/embed/${youtubeId}`,
+  getYouTubeThumbUrl: (youtubeId: string): string => `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
   getAds: async (): Promise<any[]> => {
     try { return await http<any[]>(`/api/ads`); } catch { return []; }
   },
@@ -899,9 +912,46 @@ export const contentApi = {
   },
   // Admin
   admin: {
+    listNewsCategories: async (): Promise<{ id: string; name: string; description?: string }[]> => {
+      return await http<{ id: string; name: string; description?: string }[]>(`/api/news-categories`);
+    },
+    getMetrics: async (): Promise<{ totalUsers: number; activeListings: number; totalBidsToday: number; sales24h: number }> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<{ totalUsers: number; activeListings: number; totalBidsToday: number; sales24h: number }>(`/api/admin/metrics`, { headers: { 'Authorization': `Bearer ${token}` } });
+    },
+    createNewsCategory: async (name: string, description?: string) => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http(`/api/admin/news-categories`, { method: 'POST', body: JSON.stringify({ name, description }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    updateNewsCategory: async (id: string, name: string, description?: string) => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http(`/api/admin/news-categories/${id}`, { method: 'PATCH', body: JSON.stringify({ name, description }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    deleteNewsCategory: async (id: string) => {
+      const token = localStorage.getItem('auth_token') || '';
+      await http(`/api/admin/news-categories/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      return true;
+    },
     listNews: async (): Promise<any[]> => {
       const token = localStorage.getItem('auth_token') || '';
       return await http<any[]>(`/api/admin/news`, { headers: { 'Authorization': `Bearer ${token}` } });
+    },
+    reorderNewsImages: async (id: string, imageIds: string[]): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/news/${id}/images/reorder`, { method: 'PATCH', body: JSON.stringify({ imageIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    addNewsVideos: async (id: string, youtubeIds: string[]): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/news/${id}/videos`, { method: 'POST', body: JSON.stringify({ youtubeIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+    },
+    deleteNewsVideo: async (id: string, videoDbId: string): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      await http(`/api/admin/news/${id}/videos/${videoDbId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      return true;
+    },
+    reorderNewsVideos: async (id: string, videoDbIds: string[]): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      return await http<any>(`/api/admin/news/${id}/videos/reorder`, { method: 'PATCH', body: JSON.stringify({ videoDbIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     createNews: async (data: any): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
@@ -914,6 +964,23 @@ export const contentApi = {
     deleteNews: async (id: string): Promise<boolean> => {
       const token = localStorage.getItem('auth_token') || '';
       await http(`/api/admin/news/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      return true;
+    },
+    uploadNewsImages: async (id: string, files: File[]): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      const formData = new FormData();
+      files.forEach(f => formData.append('images', f));
+      const res = await fetch(`${API_URL}/api/admin/news/${id}/images`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+      });
+      if (!res.ok) throw new Error(await res.text().catch(() => res.statusText));
+      return res.json();
+    },
+    deleteNewsImage: async (id: string, imageId: string): Promise<any> => {
+      const token = localStorage.getItem('auth_token') || '';
+      await http(`/api/admin/news/${id}/images/${imageId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     },
     listAds: async (): Promise<any[]> => {

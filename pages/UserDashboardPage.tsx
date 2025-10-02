@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { UserRole } from '../types';
 import { useWatchList } from '../contexts/WatchListContext';
 import { useNotifications } from '../contexts/NotificationContext';
+import { api } from '../services/api';
+import { isModeratorOrAdmin } from '../utils/roleUtils';
 
 const UserDashboardPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth();
   const { watchlist } = useWatchList();
   const { notifications, unreadCount } = useNotifications();
+  const [stats, setStats] = useState<{ activeBids: number; itemsWon: number; watching: number } | null>(null);
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      api.getUserStats(user.id).then(setStats).catch(() => setStats(null));
+    }
+  }, [isAuthenticated, user]);
 
   if (!isAuthenticated || !user) {
     return (
@@ -41,15 +50,15 @@ const UserDashboardPage: React.FC = () => {
             <h3 className="font-semibold text-lg text-gray-700 dark:text-gray-200">Quick Stats</h3>
              <div className="flex justify-around items-center mt-4">
                 <div className="text-center">
-                    <p className="text-3xl font-bold text-brand-blue">5</p>
+                    <p className="text-3xl font-bold text-brand-blue">{stats?.activeBids ?? 0}</p>
                     <p className="text-gray-500 dark:text-gray-400">Active Bids</p>
                 </div>
-                 <div className="text-center">
-                    <p className="text-3xl font-bold text-brand-green">2</p>
+                <div className="text-center">
+                    <p className="text-3xl font-bold text-brand-green">{stats?.itemsWon ?? 0}</p>
                     <p className="text-gray-500 dark:text-gray-400">Items Won</p>
                 </div>
-                 <div className="text-center">
-                    <p className="text-3xl font-bold text-brand-yellow">{watchlist.size}</p>
+                <div className="text-center">
+                    <p className="text-3xl font-bold text-brand-yellow">{stats?.watching ?? watchlist.size}</p>
                     <p className="text-gray-500 dark:text-gray-400">Watching</p>
                 </div>
             </div>
@@ -79,6 +88,23 @@ const UserDashboardPage: React.FC = () => {
             </div>
         </div>
       </div>
+
+      {/* News Management for Moderators */}
+      {isModeratorOrAdmin(user) && (
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">News Management</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Link to="/admin/news" className="block text-brand-blue hover:underline font-medium">Manage News Articles</Link>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Create, edit, and manage news articles</p>
+            </div>
+            <div className="space-y-2">
+              <Link to="/admin/news-categories" className="block text-brand-blue hover:underline font-medium">Manage Categories</Link>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Organize news with categories</p>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Recent Notifications */}
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">

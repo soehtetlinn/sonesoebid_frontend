@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { contentApi } from '../services/api';
 import { UserRole } from '../types';
 
 const AdminDashboardPage: React.FC = () => {
@@ -15,6 +16,12 @@ const AdminDashboardPage: React.FC = () => {
     );
   }
 
+  const [metrics, setMetrics] = useState<{ totalUsers: number; activeListings: number; totalBidsToday: number; sales24h: number } | null>(null);
+
+  useEffect(() => {
+    contentApi.admin.getMetrics().then(setMetrics).catch(() => setMetrics(null));
+  }, []);
+
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-4">Admin Dashboard</h1>
@@ -23,19 +30,19 @@ const AdminDashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center border dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-500 dark:text-gray-400">Total Users</h3>
-            <p className="text-4xl font-bold text-brand-blue">1,234</p>
+            <p className="text-4xl font-bold text-brand-blue">{metrics?.totalUsers ?? 0}</p>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center border dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-500 dark:text-gray-400">Active Listings</h3>
-            <p className="text-4xl font-bold text-brand-green">567</p>
+            <p className="text-4xl font-bold text-brand-green">{metrics?.activeListings ?? 0}</p>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center border dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-500 dark:text-gray-400">Total Bids Today</h3>
-            <p className="text-4xl font-bold text-brand-yellow">8,910</p>
+            <p className="text-4xl font-bold text-brand-yellow">{metrics?.totalBidsToday ?? 0}</p>
           </div>
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center border dark:border-gray-700">
             <h3 className="text-lg font-semibold text-gray-500 dark:text-gray-400">Sales (24h)</h3>
-            <p className="text-4xl font-bold text-gray-800 dark:text-white">$15,432</p>
+            <p className="text-4xl font-bold text-gray-800 dark:text-white">${metrics?.sales24h?.toFixed?.(2) ?? '0.00'}</p>
           </div>
       </div>
       
