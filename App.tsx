@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { NotificationProvider } from './contexts/NotificationContext';
@@ -30,13 +30,28 @@ import AdminNewsPage from './pages/AdminNewsPage';
 import AdminAdsPage from './pages/AdminAdsPage';
 import NewsListPage from './pages/NewsListPage';
 import NewsDetailPage from './pages/NewsDetailPage';
+import { useEffect } from 'react';
+import { disableAds, enableAds, fillAdsIfContentful, shouldAllowAdsForPath } from './utils/adsense';
 
 
 const PageLayout: React.FC = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const path = location.pathname || '/';
+    const allow = shouldAllowAdsForPath(path);
+    if (allow) {
+      enableAds();
+      // Defer fill slightly to let content render
+      const id = setTimeout(() => fillAdsIfContentful(), 50);
+      return () => clearTimeout(id);
+    } else {
+      disableAds();
+    }
+  }, [location]);
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main id="main-content" className="flex-grow container mx-auto px-4 py-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductListPage />} />
