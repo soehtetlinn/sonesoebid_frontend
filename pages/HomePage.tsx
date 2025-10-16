@@ -6,6 +6,8 @@ import Spinner from '../components/Spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
+const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
+
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +72,10 @@ const HomePage: React.FC = () => {
       </section>
 
       <section>
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Featured Items</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Featured Items</h2>
+          <Link to="/products" className="text-brand-blue hover:underline">View All</Link>
+        </div>
         {loading ? (
           <Spinner />
         ) : (
@@ -94,7 +99,14 @@ const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {latestNews.map((n) => (
               <Link key={n.id} to={`/news/${n.slug}`} className="bg-white dark:bg-gray-800 p-4 rounded border dark:border-gray-700 hover:shadow">
-                {n.imageUrl && <img src={n.imageUrl} alt={n.title} className="w-full h-36 object-cover rounded mb-3" />}
+                <img
+                  src={(Array.isArray(n.imageIds) && n.imageIds.length > 0)
+                    ? contentApi.getNewsImageUrl(n.imageIds[0])
+                    : (n.imageUrl || PLACEHOLDER_IMG)}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMG; }}
+                  alt={n.title}
+                  className="w-full h-36 object-cover rounded mb-3"
+                />
                 <p className="font-semibold text-gray-900 dark:text-gray-100">{n.title}</p>
                 {n.excerpt && <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">{n.excerpt}</p>}
               </Link>

@@ -28,6 +28,8 @@ import MessagingPage from './pages/MessagingPage';
 import DisputeCenterPage from './pages/DisputeCenterPage';
 import AdminNewsPage from './pages/AdminNewsPage';
 import AdminAdsPage from './pages/AdminAdsPage';
+import AdminFxPage from './pages/AdminFxPage';
+import CurrencyConverterPage from './pages/CurrencyConverterPage';
 import NewsListPage from './pages/NewsListPage';
 import NewsDetailPage from './pages/NewsDetailPage';
 import { useEffect } from 'react';
@@ -57,6 +59,7 @@ const PageLayout: React.FC = () => {
           <Route path="/products" element={<ProductListPage />} />
           <Route path="/news" element={<NewsListPage />} />
           <Route path="/news/:slug" element={<NewsDetailPage />} />
+          <Route path="/converter" element={<CurrencyConverterPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/user/:userId" element={<UserProfilePage />} />
           <Route path="/cart" element={<CartPage />} />
@@ -76,6 +79,7 @@ const PageLayout: React.FC = () => {
           <Route path="/admin/categories" element={<AdminCategoryManagementPage />} />
           <Route path="/admin/news" element={<AdminNewsPage />} />
           <Route path="/admin/ads" element={<AdminAdsPage />} />
+          <Route path="/admin/fx" element={<AdminFxPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

@@ -76,6 +76,7 @@ const Header: React.FC = () => {
               <ThemeToggle />
               <Link to="/products" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">Listings</Link>
               <Link to="/news" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">News</Link>
+              <Link to="/converter" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">Converter</Link>
               {isAuthenticated && user ? (
                 <>
                   <NotificationBell />
@@ -157,6 +158,8 @@ const Header: React.FC = () => {
                 <p className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-2">Browse</p>
                 <div className="flex items-center gap-4 flex-wrap">
                   <Link to="/products" onClick={()=>setMobileMenuOpen(false)} className="text-gray-700 dark:text-gray-200">Listings</Link>
+                  <Link to="/news" onClick={()=>setMobileMenuOpen(false)} className="text-gray-700 dark:text-gray-200">News</Link>
+                  <Link to="/converter" onClick={()=>setMobileMenuOpen(false)} className="text-gray-700 dark:text-gray-200">Converter</Link>
                 </div>
               </div>
               <div>

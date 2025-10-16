@@ -246,6 +246,16 @@ export const api = {
     
     return { user: null, error: 'Invalid credentials' };
   },
+  loginWithGoogle: async (idToken: string): Promise<{ user: User | null; error?: string }> => {
+    try {
+      const resp = await http<{ token: string; user: User }>(`/api/auth/google`, { method: 'POST', body: JSON.stringify({ idToken }) });
+      localStorage.setItem('auth_token', resp.token);
+      localStorage.setItem('auth_user', JSON.stringify(resp.user));
+      return { user: resp.user };
+    } catch (e: any) {
+      return { user: null, error: e.message || 'Google sign-in failed' };
+    }
+  },
   
   register: async (username: string, email: string, password: string, firstName?: string, lastName?: string, phone?: string): Promise<{ user: User | null; error?: string }> => {
     if (API_URL) {
@@ -470,6 +480,15 @@ export const api = {
       user.phone = data.phone ?? user.phone;
       user.address = { ...(user.address || {}), ...(data.address || {}) };
       return {...user};
+  },
+  adminResetUserPassword: async (userId: number, newPassword: string): Promise<boolean> => {
+    try {
+      const token = localStorage.getItem('auth_token') || '';
+      await http(`/api/admin/users/${userId}/password`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ newPassword }) });
+      return true;
+    } catch {
+      return false;
+    }
   },
   getProductsByUserId: async (userId: number): Promise<Product[]> => {
     if (API_URL) {
@@ -1000,5 +1019,20 @@ export const contentApi = {
       await http(`/api/admin/ads/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     }
+  }
+};
+
+// FX client
+export const fxApi = {
+  parse: async (text: string, base = 'USD', quote = 'MMK'): Promise<any> => {
+    const token = localStorage.getItem('auth_token') || '';
+    return await http(`/api/admin/fx/parse`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ text, base, quote }) });
+  },
+  listAdmin: async (): Promise<any[]> => {
+    const token = localStorage.getItem('auth_token') || '';
+    return await http<any[]>(`/api/admin/fx`, { headers: { 'Authorization': `Bearer ${token}` } });
+  },
+  latest: async (base = 'THB', quote = 'MMK'): Promise<any | null> => {
+    try { return await http<any>(`/api/fx/latest`); } catch { return null; }
   }
 };

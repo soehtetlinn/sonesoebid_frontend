@@ -17,6 +17,10 @@ const AdminUserManagementPage: React.FC = () => {
   const [errors, setErrors] = useState<{username?: string; email?: string}>({});
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showRoleManagement, setShowRoleManagement] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editForm, setEditForm] = useState<Partial<User>>({});
+  const [isPwOpen, setIsPwOpen] = useState(false);
+  const [newPw, setNewPw] = useState('');
 
   useEffect(() => {
     if (isAuthenticated && isAdmin(user)) {
@@ -93,6 +97,17 @@ const AdminUserManagementPage: React.FC = () => {
                     >
                       Manage Roles
                     </button>
+                    <button 
+                      onClick={() => {
+                        setSelectedUser(u);
+                        setEditForm({ username: u.username, email: u.email, firstName: u.firstName, lastName: u.lastName, phone: u.phone });
+                        setIsEditOpen(true);
+                      }}
+                      className="text-brand-blue hover:underline"
+                    >
+                      Edit
+                    </button>
+                    <button onClick={() => { setSelectedUser(u); setIsPwOpen(true); setNewPw(''); }} className="text-brand-blue hover:underline">Reset Password</button>
                     <button onClick={async ()=>{ const ok = confirm('Delete this user?'); if(!ok) return; const success = await api.deleteUser(u.id); if(success){ setUsers(users.filter(x=>x.id!==u.id)); } else { alert('Failed to delete user'); } }} className="text-brand-red hover:underline">Delete</button>
                   </td>
                 </tr>
@@ -127,6 +142,42 @@ const AdminUserManagementPage: React.FC = () => {
                 });
               }} 
             />
+          </div>
+        </div>
+      )}
+
+      {isEditOpen && selectedUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-lg border dark:border-gray-700 relative">
+            <button onClick={()=>{ setIsEditOpen(false); setSelectedUser(null); }} className="absolute right-4 top-4 text-gray-500 hover:text-gray-700">✕</button>
+            <h2 className="text-xl font-semibold mb-4">Edit User</h2>
+            <div className="space-y-3">
+              <input value={editForm.username || ''} onChange={(e)=>setEditForm({...editForm, username: e.target.value})} placeholder="Username" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+              <input value={editForm.email || ''} onChange={(e)=>setEditForm({...editForm, email: e.target.value})} placeholder="Email" type="email" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input value={editForm.firstName || ''} onChange={(e)=>setEditForm({...editForm, firstName: e.target.value})} placeholder="First name" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+                <input value={editForm.lastName || ''} onChange={(e)=>setEditForm({...editForm, lastName: e.target.value})} placeholder="Last name" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+              </div>
+              <input value={editForm.phone || ''} onChange={(e)=>setEditForm({...editForm, phone: e.target.value})} placeholder="Phone" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+              <div className="flex justify-end gap-2 pt-2">
+                <button onClick={()=>{ setIsEditOpen(false); setSelectedUser(null); }} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md">Cancel</button>
+                <button onClick={async ()=>{ if (!selectedUser) return; const updated = await api.updateUserProfile(selectedUser.id, editForm as any); if(updated){ setUsers(users.map(u=>u.id===updated.id?updated:u)); setIsEditOpen(false); setSelectedUser(null); } else { alert('Update failed'); } }} className="px-4 py-2 bg-brand-blue text-white rounded-md">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isPwOpen && selectedUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md border dark:border-gray-700 relative">
+            <button onClick={()=>{ setIsPwOpen(false); setSelectedUser(null); }} className="absolute right-4 top-4 text-gray-500 hover:text-gray-700">✕</button>
+            <h2 className="text-xl font-semibold mb-4">Reset Password</h2>
+            <input type="password" value={newPw} onChange={(e)=>setNewPw(e.target.value)} placeholder="New password (min 8 chars)" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600" />
+            <div className="flex justify-end gap-2 pt-4">
+              <button onClick={()=>{ setIsPwOpen(false); setSelectedUser(null); }} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md">Cancel</button>
+              <button onClick={async ()=>{ if(!selectedUser) return; if((newPw||'').length<8){ alert('Password must be at least 8 characters'); return; } const ok = await api.adminResetUserPassword(selectedUser.id, newPw); if(ok){ alert('Password reset'); setIsPwOpen(false); setSelectedUser(null); } else { alert('Reset failed'); } }} className="px-4 py-2 bg-brand-blue text-white rounded-md">Save</button>
+            </div>
           </div>
         </div>
       )}

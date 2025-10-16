@@ -83,6 +83,13 @@ const AdminDashboardPage: React.FC = () => {
               Go to Advertising
             </Link>
           </div>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Currency Exchange</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">Parse Myanmar text messages to update USD/MMK rates and manage entries.</p>
+            <Link to="/admin/fx" className="bg-purple-600 text-white font-semibold py-2 px-4 rounded hover:bg-purple-700">
+              Go to Currency Exchange
+            </Link>
+          </div>
       </div>
     </div>
   );
