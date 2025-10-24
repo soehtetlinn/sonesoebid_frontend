@@ -50,7 +50,7 @@ const UserDashboardPage: React.FC = () => {
             <h3 className="font-semibold text-lg text-gray-700 dark:text-gray-200">Quick Stats</h3>
              <div className="flex justify-around items-center mt-4">
                 <div className="text-center">
-                    <p className="text-3xl font-bold text-brand-blue">{stats?.activeBids ?? 0}</p>
+                    <p className="text-3xl font-bold text-brand-teal">{stats?.activeBids ?? 0}</p>
                     <p className="text-gray-500 dark:text-gray-400">Active Bids</p>
                 </div>
                 <div className="text-center">
@@ -69,22 +69,22 @@ const UserDashboardPage: React.FC = () => {
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Account</h2>
             <div className="space-y-2">
-                <Link to={`/user/${user.id}`} className="block text-brand-blue hover:underline">My Profile</Link>
-                <Link to="/dashboard/orders" className="block text-brand-blue hover:underline">Order History</Link>
+                <Link to={`/user/${user.id}`} className="block text-brand-teal hover:underline">My Profile</Link>
+                <Link to="/dashboard/orders" className="block text-brand-teal hover:underline">Order History</Link>
             </div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Selling</h2>
             <div className="space-y-2">
-                <Link to="/dashboard/products" className="block text-brand-blue hover:underline">My Products</Link>
-                 <Link to="/dashboard/product/new" className="block text-brand-blue hover:underline">List a New Item</Link>
+                <Link to="/dashboard/products" className="block text-brand-teal hover:underline">My Products</Link>
+                 <Link to="/dashboard/product/new" className="block text-brand-teal hover:underline">List a New Item</Link>
             </div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Activity</h2>
             <div className="space-y-2">
-                <Link to="/dashboard/watchlist" className="block text-brand-blue hover:underline">Watchlist</Link>
-                <Link to="/dashboard/messages" className="block text-brand-blue hover:underline">Messages</Link>
+                <Link to="/dashboard/watchlist" className="block text-brand-teal hover:underline">Watchlist</Link>
+                <Link to="/dashboard/messages" className="block text-brand-teal hover:underline">Messages</Link>
             </div>
         </div>
       </div>
@@ -95,11 +95,11 @@ const UserDashboardPage: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">News Management</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Link to="/admin/news" className="block text-brand-blue hover:underline font-medium">Manage News Articles</Link>
+              <Link to="/admin/news" className="block text-brand-teal hover:underline font-medium">Manage News Articles</Link>
               <p className="text-sm text-gray-600 dark:text-gray-400">Create, edit, and manage news articles</p>
             </div>
             <div className="space-y-2">
-              <Link to="/admin/news-categories" className="block text-brand-blue hover:underline font-medium">Manage Categories</Link>
+              <Link to="/admin/news-categories" className="block text-brand-teal hover:underline font-medium">Manage Categories</Link>
               <p className="text-sm text-gray-600 dark:text-gray-400">Organize news with categories</p>
             </div>
           </div>
@@ -124,7 +124,7 @@ const UserDashboardPage: React.FC = () => {
         ) : (
             <p className="text-gray-600 dark:text-gray-400">You have no new notifications.</p>
         )}
-        <Link to="/dashboard/notifications" className="inline-block mt-4 text-brand-blue font-semibold hover:underline">
+        <Link to="/dashboard/notifications" className="inline-block mt-4 text-brand-teal font-semibold hover:underline">
             View all notifications
         </Link>
       </div>

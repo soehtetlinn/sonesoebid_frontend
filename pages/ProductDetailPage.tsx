@@ -142,7 +142,7 @@ const ProductDetailPage: React.FC = () => {
             )}
           </div>
            <p className="text-md text-gray-500 dark:text-gray-400 mb-4">
-            Sold by <Link to={`/user/${product.userId}`} className="font-semibold text-brand-blue hover:underline">{product.seller}</Link>
+            Sold by <Link to={`/user/${product.userId}`} className="font-semibold text-brand-teal hover:underline">{product.seller}</Link>
           </p>
            <div className="text-sm text-gray-600 dark:text-gray-400 mb-4 space-x-4">
                <span>Condition: <span className="font-semibold">{product.condition}</span></span>
@@ -177,7 +177,7 @@ const ProductDetailPage: React.FC = () => {
                     <label className="font-semibold text-sm">Place Maximum Bid (Proxy Bidding):</label>
                     <div className="flex items-center space-x-2">
                         <span className="text-lg font-semibold">$</span>
-                        <input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} placeholder={`min $${minBid.toFixed(2)}`} step="1.00" min={minBid} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-500 rounded-md focus:outline-none focus:border-brand-blue dark:bg-gray-800" disabled={!isAuthenticated || isSubmitting}/>
+                        <input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} placeholder={`min $${minBid.toFixed(2)}`} step="1.00" min={minBid} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-500 rounded-md focus:outline-none focus:border-brand-teal dark:bg-gray-800" disabled={!isAuthenticated || isSubmitting}/>
                         <button type="submit" disabled={!isAuthenticated || isSubmitting} className="ui-btn ui-btn-cta" style={{ width:'auto' }}>
                             {isSubmitting ? 'Placing...' : 'Place Bid'}
                         </button>
@@ -205,7 +205,7 @@ const ProductDetailPage: React.FC = () => {
             {!isAuthenticated && <p className="text-sm text-brand-red mt-2">Please sign in to participate.</p>}
           </div>
             { isAuthenticated && user?.id !== product.userId &&
-                <button onClick={handleContactSeller} className="w-full mt-4 py-2 text-center text-brand-blue font-semibold hover:underline">
+                <button onClick={handleContactSeller} className="w-full mt-4 py-2 text-center text-brand-teal font-semibold hover:underline">
                     Contact Seller
                 </button>
             }

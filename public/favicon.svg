@@ -1,15 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" width="200" height="40">
-  <text x="10" y="28" font-family="Arial, sans-serif" font-size="24" font-weight="normal" fill="none" stroke="none">
-    <tspan fill="#d93132">s</tspan>
-    <tspan fill="#f5af02">o</tspan>
-    <tspan fill="#3665f3">n</tspan>
-    <tspan fill="#d93132">e</tspan>
-    <tspan fill="#f5af02">s</tspan>
-    <tspan fill="#69b425">o</tspan>
-    <tspan fill="#d93132">e</tspan>
-    <tspan fill="#3665f3">b</tspan>
-    <tspan fill="#3665f3">i</tspan>
-    <tspan fill="#3665f3">d</tspan>
-  </text>
-  <text x="180" y="12" font-family="Arial, sans-serif" font-size="8" fill="#666">™</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Dark background circle -->
+  <circle cx="16" cy="16" r="16" fill="#2C2C2C"/>
+  
+  <!-- Central computer chip -->
+  <rect x="12" y="12" width="8" height="8" fill="#65A9AD" rx="1"/>
+  <rect x="13" y="13" width="6" height="6" fill="#4A90A0" rx="0.5"/>
+  
+  <!-- Chip pins -->
+  <rect x="10" y="15" width="2" height="2" fill="#65A9AD"/>
+  <rect x="20" y="15" width="2" height="2" fill="#65A9AD"/>
+  <rect x="15" y="10" width="2" height="2" fill="#65A9AD"/>
+  <rect x="15" y="20" width="2" height="2" fill="#65A9AD"/>
+  
+  <!-- Swirling arrows -->
+  <path d="M6,8 Q8,6 10,8 Q12,10 8,12 Q6,10 6,8" fill="#FF6B35" opacity="0.8"/>
+  <path d="M26,8 Q24,6 22,8 Q20,10 24,12 Q26,10 26,8" fill="#FF6B35" opacity="0.8"/>
+  <path d="M8,6 Q6,8 8,10 Q10,12 12,8 Q10,6 8,6" fill="#FFA500" opacity="0.7"/>
+  <path d="M24,6 Q26,8 24,10 Q22,12 20,8 Q22,6 24,6" fill="#FFA500" opacity="0.7"/>
+  
+  <!-- Additional motion elements -->
+  <circle cx="8" cy="24" r="1.5" fill="#FF6B35" opacity="0.6"/>
+  <circle cx="24" cy="24" r="1.5" fill="#FFA500" opacity="0.6"/>
+  <circle cx="4" cy="16" r="1" fill="#FF6B35" opacity="0.5"/>
+  <circle cx="28" cy="16" r="1" fill="#FFA500" opacity="0.5"/>
 </svg>

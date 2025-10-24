@@ -229,7 +229,7 @@ const AdminNewsPage: React.FC = () => {
           </div>
           <textarea name="excerpt" value={form.excerpt} onChange={handleChange} placeholder="Excerpt" className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
           <textarea name="content" value={form.content} onChange={handleChange} placeholder="Content (markdown/plain)" required rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
-          <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-blue text-white rounded disabled:opacity-50">{loading ? 'Publishing...' : 'Create News'}</button>
+          <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-teal text-white rounded disabled:opacity-50">{loading ? 'Publishing...' : 'Create News'}</button>
         </form>
         <aside className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 lg:col-span-1">
           <h3 className="text-lg font-semibold mb-4">Trending</h3>
@@ -315,7 +315,7 @@ const AdminNewsPage: React.FC = () => {
           )}
 
             <div className="flex gap-2">
-              <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-blue text-white rounded disabled:opacity-50">{loading ? 'Saving...' : 'Save Changes'}</button>
+              <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-teal text-white rounded disabled:opacity-50">{loading ? 'Saving...' : 'Save Changes'}</button>
               <button type="button" onClick={cancelEdit} className="px-4 py-2 border rounded">Cancel</button>
             </div>
           </form>

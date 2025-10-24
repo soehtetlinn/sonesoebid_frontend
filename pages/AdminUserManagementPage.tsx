@@ -39,7 +39,7 @@ const AdminUserManagementPage: React.FC = () => {
     <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">User Management</h1>
       <div className="mb-6">
-        <button onClick={()=>setIsCreateOpen(true)} className="px-4 py-2 bg-brand-blue text-white rounded-md">Add User</button>
+        <button onClick={()=>setIsCreateOpen(true)} className="px-4 py-2 bg-brand-teal text-white rounded-md">Add User</button>
       </div>
 
       {isCreateOpen && (
@@ -59,7 +59,7 @@ const AdminUserManagementPage: React.FC = () => {
               </select>
               <div className="flex justify-end gap-2 pt-2">
                 <button onClick={()=>setIsCreateOpen(false)} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md">Cancel</button>
-                <button onClick={async ()=>{ const hasErr = (form.username.trim().length<2) || !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)); if(hasErr){ setErrors({ username: form.username.trim().length<2 ? 'Username min 2 chars' : '', email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? '' : 'Invalid email' }); return; } const created = await api.createUser(form); if(created){ setUsers([...users, created]); setForm({username:'',email:'',role:UserRole.BUYER}); setIsCreateOpen(false); } else { alert('Failed to create'); } }} className="px-4 py-2 bg-brand-blue text-white rounded-md">Add</button>
+                <button onClick={async ()=>{ const hasErr = (form.username.trim().length<2) || !(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)); if(hasErr){ setErrors({ username: form.username.trim().length<2 ? 'Username min 2 chars' : '', email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) ? '' : 'Invalid email' }); return; } const created = await api.createUser(form); if(created){ setUsers([...users, created]); setForm({username:'',email:'',role:UserRole.BUYER}); setIsCreateOpen(false); } else { alert('Failed to create'); } }} className="px-4 py-2 bg-brand-teal text-white rounded-md">Add</button>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ const AdminUserManagementPage: React.FC = () => {
                         setSelectedUser(u);
                         setShowRoleManagement(true);
                       }}
-                      className="text-brand-blue hover:underline"
+                      className="text-brand-teal hover:underline"
                     >
                       Manage Roles
                     </button>
@@ -103,11 +103,11 @@ const AdminUserManagementPage: React.FC = () => {
                         setEditForm({ username: u.username, email: u.email, firstName: u.firstName, lastName: u.lastName, phone: u.phone });
                         setIsEditOpen(true);
                       }}
-                      className="text-brand-blue hover:underline"
+                      className="text-brand-teal hover:underline"
                     >
                       Edit
                     </button>
-                    <button onClick={() => { setSelectedUser(u); setIsPwOpen(true); setNewPw(''); }} className="text-brand-blue hover:underline">Reset Password</button>
+                    <button onClick={() => { setSelectedUser(u); setIsPwOpen(true); setNewPw(''); }} className="text-brand-teal hover:underline">Reset Password</button>
                     <button onClick={async ()=>{ const ok = confirm('Delete this user?'); if(!ok) return; const success = await api.deleteUser(u.id); if(success){ setUsers(users.filter(x=>x.id!==u.id)); } else { alert('Failed to delete user'); } }} className="text-brand-red hover:underline">Delete</button>
                   </td>
                 </tr>
@@ -161,7 +161,7 @@ const AdminUserManagementPage: React.FC = () => {
               <input value={editForm.phone || ''} onChange={(e)=>setEditForm({...editForm, phone: e.target.value})} placeholder="Phone" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
               <div className="flex justify-end gap-2 pt-2">
                 <button onClick={()=>{ setIsEditOpen(false); setSelectedUser(null); }} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md">Cancel</button>
-                <button onClick={async ()=>{ if (!selectedUser) return; const updated = await api.updateUserProfile(selectedUser.id, editForm as any); if(updated){ setUsers(users.map(u=>u.id===updated.id?updated:u)); setIsEditOpen(false); setSelectedUser(null); } else { alert('Update failed'); } }} className="px-4 py-2 bg-brand-blue text-white rounded-md">Save</button>
+                <button onClick={async ()=>{ if (!selectedUser) return; const updated = await api.updateUserProfile(selectedUser.id, editForm as any); if (updated){ setUsers(users.map(u=>u.id===updated.id?updated:u)); setIsEditOpen(false); setSelectedUser(null); } else { alert('Update failed'); } }} className="px-4 py-2 bg-brand-teal text-white rounded-md">Save</button>
               </div>
             </div>
           </div>
@@ -176,7 +176,7 @@ const AdminUserManagementPage: React.FC = () => {
             <input type="password" value={newPw} onChange={(e)=>setNewPw(e.target.value)} placeholder="New password (min 8 chars)" className="w-full px-3 py-2 border rounded dark:bg-gray-700 dark:border-gray-600" />
             <div className="flex justify-end gap-2 pt-4">
               <button onClick={()=>{ setIsPwOpen(false); setSelectedUser(null); }} className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-md">Cancel</button>
-              <button onClick={async ()=>{ if(!selectedUser) return; if((newPw||'').length<8){ alert('Password must be at least 8 characters'); return; } const ok = await api.adminResetUserPassword(selectedUser.id, newPw); if(ok){ alert('Password reset'); setIsPwOpen(false); setSelectedUser(null); } else { alert('Reset failed'); } }} className="px-4 py-2 bg-brand-blue text-white rounded-md">Save</button>
+              <button onClick={async ()=>{ if(!selectedUser) return; if((newPw||'').length<8){ alert('Password must be at least 8 characters'); return; } const ok = await api.adminResetUserPassword(selectedUser.id, newPw); if(ok){ alert('Password reset'); setIsPwOpen(false); setSelectedUser(null); } else { alert('Reset failed'); } }} className="px-4 py-2 bg-brand-teal text-white rounded-md">Save</button>
             </div>
           </div>
         </div>

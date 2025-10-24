@@ -1,8 +1,8 @@
 :root{
-  --color-primary:#0A346C; /* Deep Royal Blue */
-  --color-secondary:#1A1A1A; /* Charcoal */
-  --color-bg:#FFFFFF; /* Pristine White */
-  --color-accent:#FF6600; /* Vibrant Orange */
+  --color-primary:#534133; /* Primary brown from hero */
+  --color-secondary:#95684C; /* Secondary brown from hero */
+  --color-bg:#825d26; /* Warm brown-gray */
+  --color-accent:#BF9663; /* Accent gold from hero */
 
   --radius:12px;
   --shadow:0 8px 24px rgba(0,0,0,0.08);
@@ -16,9 +16,9 @@ body{ background:var(--color-bg); color:var(--color-secondary); }
 .ui-btn:hover{ transform:translateY(-1px) scale(1.01); box-shadow:var(--shadow-hover); }
 .ui-btn-cta{ background:var(--color-accent); color:#fff; }
 .ui-btn-primary{ background:var(--color-primary); color:#fff; }
-.ui-btn-outline{ background:#fff; border-color:var(--color-primary); color:var(--color-primary); }
+.ui-btn-outline{ background:#FEFCF9; border-color:var(--color-primary); color:var(--color-primary); }
 
-.ui-card{ background:#fff; border:1px solid rgba(10,52,108,.10); border-radius:var(--radius); box-shadow:var(--shadow); }
+.ui-card{ background:#FEFCF9; border:1px solid rgba(83,65,51,.10); border-radius:var(--radius); box-shadow:var(--shadow); }
 .ui-card-hover:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
 
 .ui-article{ width:100%; max-width:var(--max-readable); margin:0 auto; }

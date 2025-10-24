@@ -87,7 +87,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitchToSign
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">Sign In to SoneSoe Bid</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">Sign In to SHL Hub</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="emailOrUsername" className="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Email or Username</label>
@@ -96,7 +96,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitchToSign
               id="emailOrUsername"
               value={emailOrUsername}
               onChange={(e) => setEmailOrUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholder="your@email.com or username"
               required
             />
@@ -108,7 +108,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitchToSign
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholder="Enter your password"
               required
             />
@@ -117,7 +117,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitchToSign
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-brand-blue text-white py-2 rounded-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
+            className="w-full bg-brand-teal text-white py-2 rounded-md hover:bg-teal-700 disabled:bg-teal-300 transition-colors"
           >
             {isLoading ? 'Signing In...' : 'Sign In'}
           </button>
@@ -143,7 +143,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSwitchToSign
 
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{' '}
-            <button onClick={onSwitchToSignUp} className="font-medium text-brand-blue hover:underline">
+            <button onClick={onSwitchToSignUp} className="font-medium text-brand-teal hover:underline">
                 Sign up
             </button>
         </p>

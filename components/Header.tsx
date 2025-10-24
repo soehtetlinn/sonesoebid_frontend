@@ -53,8 +53,12 @@ const Header: React.FC = () => {
       <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
-            <Link to="/" className="text-3xl font-bold text-brand-blue" onClick={()=>setMobileMenuOpen(false)}>
-              SoneSoe<span className="text-brand-yellow">Bid</span>
+            <Link to="/" className="flex items-center" onClick={()=>setMobileMenuOpen(false)}>
+              <img 
+                src="/logo-light.svg" 
+                alt="SHL Hub" 
+                className="h-12 w-auto"
+              />
             </Link>
             {/* Desktop search */}
             <div className="hidden md:block flex-grow max-w-xl mx-8">
@@ -64,9 +68,9 @@ const Header: React.FC = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search for anything..."
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:border-brand-blue dark:focus:border-brand-blue bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:border-brand-teal dark:focus:border-brand-teal bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
-                <button type="submit" className="absolute right-0 top-0 mt-1 mr-1 px-4 py-1.5 bg-brand-blue text-white rounded-full hover:bg-blue-700">
+                <button type="submit" className="absolute right-0 top-0 mt-1 mr-1 px-4 py-1.5 bg-brand-teal text-white rounded-full hover:bg-teal-700">
                   Search
                 </button>
               </form>
@@ -74,9 +78,9 @@ const Header: React.FC = () => {
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center space-x-4">
               <ThemeToggle />
-              <Link to="/products" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">Listings</Link>
-              <Link to="/news" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">News</Link>
-              <a href="https://www.shltechent.com/currex/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-brand-blue">Currex</a>
+              <Link to="/products" className="text-gray-600 dark:text-gray-300 hover:text-brand-teal">Listings</Link>
+              <Link to="/news" className="text-gray-600 dark:text-gray-300 hover:text-brand-teal">News</Link>
+              <a href="https://www.shltechent.com/currex/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 hover:text-brand-teal">Currex</a>
               {isAuthenticated && user ? (
                 <>
                   <NotificationBell />
@@ -98,7 +102,7 @@ const Header: React.FC = () => {
                     <div className="flex flex-col items-end">
                       <Link 
                         to={`/user/${user.id}`} 
-                        className="font-semibold text-gray-700 dark:text-gray-200 hover:text-brand-blue"
+                        className="font-semibold text-gray-700 dark:text-gray-200 hover:text-brand-teal"
                       >
                         Hi, {user.username}
                       </Link>
@@ -113,7 +117,7 @@ const Header: React.FC = () => {
                 <>
                   <button 
                     onClick={() => setLoginModalOpen(true)}
-                    className="px-4 py-2 bg-brand-blue text-white rounded-md hover:bg-blue-700"
+                    className="px-4 py-2 bg-brand-teal text-white rounded-md hover:bg-teal-700"
                   >
                     Sign In
                   </button>
@@ -147,9 +151,9 @@ const Header: React.FC = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search for anything..."
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-brand-blue dark:focus:border-brand-blue bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-brand-teal dark:focus:border-brand-teal bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 />
-                <button type="submit" className="absolute right-1 top-1 px-3 py-1 bg-brand-blue text-white rounded-md hover:bg-blue-700 text-sm">
+                <button type="submit" className="absolute right-1 top-1 px-3 py-1 bg-brand-teal text-white rounded-md hover:bg-teal-700 text-sm">
                   Search
                 </button>
               </form>
@@ -176,7 +180,7 @@ const Header: React.FC = () => {
                   </div>
                 ) : (
                   <div className="flex items-center gap-3">
-                    <button onClick={()=>{ setLoginModalOpen(true); setMobileMenuOpen(false); }} className="flex-1 px-4 py-2 bg-brand-blue text-white rounded-md">Sign In</button>
+                    <button onClick={()=>{ setLoginModalOpen(true); setMobileMenuOpen(false); }} className="flex-1 px-4 py-2 bg-brand-teal text-white rounded-md">Sign In</button>
                     <button onClick={()=>{ setSignUpModalOpen(true); setMobileMenuOpen(false); }} className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-md">Sign Up</button>
                   </div>
                 )}

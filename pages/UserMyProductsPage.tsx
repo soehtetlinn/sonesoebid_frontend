@@ -82,7 +82,7 @@ const UserMyProductsPage: React.FC = () => {
                   <td className="py-2 px-4">{product.bids.length}</td>
                   <td className="py-2 px-4 text-gray-600 dark:text-gray-400">{new Date(product.endDate).toLocaleDateString()}</td>
                   <td className="py-2 px-4 space-x-2">
-                    <Link to={`/dashboard/product/edit/${product.id}`} className="text-brand-blue hover:underline">Edit</Link>
+                    <Link to={`/dashboard/product/edit/${product.id}`} className="text-brand-teal hover:underline">Edit</Link>
                     <button onClick={() => handleDelete(product.id)} className="text-brand-red hover:underline">Delete</button>
                   </td>
                 </tr>

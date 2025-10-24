@@ -105,7 +105,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
                 id="firstName-signup"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 placeholder="First Name"
               />
             </div>
@@ -116,7 +116,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
                 id="lastName-signup"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                 placeholder="Last Name"
               />
             </div>
@@ -128,7 +128,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
               id="username-signup"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholder="Choose a username"
               required
               minLength={3}
@@ -141,7 +141,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
               id="email-signup"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholder="you@example.com"
               required
             />
@@ -153,7 +153,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
               id="phone-signup"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholder="+1 (555) 123-4567"
             />
           </div>
@@ -164,7 +164,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
               id="password-signup"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-teal bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
               placeholder="Enter your password"
               required
               minLength={6}
@@ -186,7 +186,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-brand-blue text-white py-2 rounded-md hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
+            className="w-full bg-brand-teal text-white py-2 rounded-md hover:bg-teal-700 disabled:bg-teal-300 transition-colors"
           >
             {isLoading ? 'Creating Account...' : 'Sign Up'}
           </button>
@@ -196,7 +196,7 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose, onSwitchToLo
 
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{' '}
-            <button onClick={onSwitchToLogin} className="font-medium text-brand-blue hover:underline">
+            <button onClick={onSwitchToLogin} className="font-medium text-brand-teal hover:underline">
                 Sign in
             </button>
         </p>

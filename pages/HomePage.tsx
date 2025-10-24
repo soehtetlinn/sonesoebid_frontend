@@ -5,6 +5,9 @@ import ProductCard from '../components/ProductCard';
 import Spinner from '../components/Spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { motion } from 'framer-motion';
+import ThreeScene from '../components/ThreeScene';
+import SimpleThreeHero from '../components/SimpleThreeHero';
 
 const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
 
@@ -20,100 +23,278 @@ const HomePage: React.FC = () => {
       setLoading(true);
       // FIX: api.getProducts expects a filters object. Pass empty object for no filters.
       const allProducts = await api.getProducts({});
-      // Feature first 4 products
-      setProducts(allProducts.slice(0, 4));
+      // Feature first 6 products
+      setProducts(allProducts.slice(0, 6));
       setLoading(false);
     };
     fetchProducts();
-    // Load latest news (top 3)
-    contentApi.getNews().then((list: any) => setLatestNews((list || []).slice(0, 3)));
+    // Load latest news (top 5)
+    contentApi.getNews().then((list: any) => setLatestNews((list || []).slice(0, 5)));
   }, []);
 
   return (
-    <div>
-      {/* Hero: Selling banner with right callout */}
-      <section className="relative overflow-hidden rounded-lg shadow-md mb-12 border dark:border-gray-700">
-        <img
-          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920&auto=format&fit=crop"
-          alt="Selling banner"
-          className="w-full h-[360px] sm:h-[420px] md:h-[520px] object-cover"
-        />
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Continuous 3D Background for entire page */}
+      <div className="fixed inset-0 w-full h-full opacity-20 z-0">
+        <ThreeScene />
+      </div>
+      
+      {/* 3D Hero Section - Full Width */}
+      <div className="relative w-full z-10">
+        <SimpleThreeHero />
+      </div>
 
-        {/* Right side callout card */}
-        <div className="absolute inset-y-0 right-0 flex items-center">
-          <div className="bg-white/95 dark:bg-gray-900/90 backdrop-blur rounded-xl shadow-xl border dark:border-gray-700 max-w-xl m-4 sm:m-6 md:m-8 p-6 sm:p-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 leading-tight">
-              Make money selling
-              <br />
-              on SoneSoe Bid
-            </h2>
-            <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-300">
-              Sell your items fast—millions of buyers are waiting.
-            </p>
-            <div className="mt-6">
-              {isAuthenticated ? (
-                <Link
-                  to="/dashboard/product/new"
-                  className="inline-flex items-center justify-center bg-brand-blue text-white font-semibold py-3 px-6 rounded-full text-base sm:text-lg hover:bg-blue-700 transition-colors"
-                >
-                  List an item
-                </Link>
-              ) : (
-                <button
-                  onClick={() => navigate('/?auth=login')}
-                  className="inline-flex items-center justify-center bg-brand-blue text-white font-semibold py-3 px-6 rounded-full text-base sm:text-lg hover:bg-blue-700 transition-colors"
-                >
-                  List an item
-                </button>
-              )}
-            </div>
+      {/* Featured Items Section - Full Width */}
+      <motion.section 
+        className="relative w-full mb-16 py-20 overflow-hidden z-10"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Section Header - Centered and Beautiful */}
+          <div className="text-center mb-12">
+            <motion.div
+              className="inline-block"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <motion.h2 
+                className="text-5xl md:text-6xl font-extrabold mb-4"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <span className="bg-gradient-to-r from-brand-teal via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                  Featured Items
+                </span>
+              </motion.h2>
+              
+              <motion.div 
+                className="w-24 h-1 bg-gradient-to-r from-brand-teal to-blue-500 mx-auto mb-6 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: 96 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              />
+              
+              <motion.p 
+                className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+              >
+                Discover trending products from our community
+              </motion.p>
+            </motion.div>
           </div>
-        </div>
-      </section>
 
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Featured Items</h2>
-          <Link to="/products" className="text-brand-blue hover:underline">View All</Link>
-        </div>
+          {/* View All Link - Positioned nicely */}
+          <motion.div 
+            className="flex justify-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+          >
+            <Link 
+              to="/products" 
+              className="group inline-flex items-center px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-brand-teal/20 text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              View All Products
+              <motion.svg 
+                className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </motion.svg>
+            </Link>
+          </motion.div>
+        
         {loading ? (
-          <Spinner />
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div className="flex justify-center items-center py-16">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            >
+              <Spinner />
+            </motion.div>
           </div>
+        ) : (
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            {products.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="transform transition-all duration-300"
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </motion.div>
         )}
-      </section>
-
-      {/* Latest News */}
-      <section className="mt-12">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Latest News</h2>
-          <Link to="/news" className="text-brand-blue hover:underline">View all</Link>
         </div>
-        {latestNews.length === 0 ? (
-          <p className="text-gray-600 dark:text-gray-300">No news yet.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {latestNews.map((n) => (
-              <Link key={n.id} to={`/news/${n.slug}`} className="bg-white dark:bg-gray-800 p-4 rounded border dark:border-gray-700 hover:shadow">
-                <img
-                  src={(Array.isArray(n.imageIds) && n.imageIds.length > 0)
-                    ? contentApi.getNewsImageUrl(n.imageIds[0])
-                    : (n.imageUrl || PLACEHOLDER_IMG)}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMG; }}
-                  alt={n.title}
-                  className="w-full h-36 object-cover rounded mb-3"
-                />
-                <p className="font-semibold text-gray-900 dark:text-gray-100">{n.title}</p>
-                {n.excerpt && <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">{n.excerpt}</p>}
-              </Link>
-            ))}
+      </motion.section>
+
+      {/* Latest News Section - Full Width */}
+      <motion.section 
+        className="relative w-full mb-16 py-20 overflow-hidden z-10"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12">
+          {/* Section Header - Centered and Beautiful */}
+          <div className="text-center mb-12">
+            <motion.div
+              className="inline-block"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <motion.h2 
+                className="text-5xl md:text-6xl font-extrabold mb-4"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              >
+                <span className="bg-gradient-to-r from-brand-teal via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                  Latest News
+                </span>
+              </motion.h2>
+              
+              <motion.div 
+                className="w-24 h-1 bg-gradient-to-r from-brand-teal to-blue-500 mx-auto mb-6 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: 96 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+              />
+              
+              <motion.p 
+                className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+              >
+                Stay updated with the latest marketplace insights
+              </motion.p>
+            </motion.div>
           </div>
+
+          {/* View All Link - Positioned nicely */}
+          <motion.div 
+            className="flex justify-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.4 }}
+          >
+            <Link 
+              to="/news" 
+              className="group inline-flex items-center px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-brand-teal/20 text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              View All News
+              <motion.svg 
+                className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </motion.svg>
+            </Link>
+          </motion.div>
+        
+        {latestNews.length === 0 ? (
+          <motion.div 
+            className="text-center py-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1 }}
+          >
+            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+              </div>
+              <p className="text-gray-600 dark:text-gray-300 text-lg">No news yet.</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">Check back later for updates!</p>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            {latestNews.map((n, index) => (
+              <motion.div
+                key={n.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.1 + index * 0.1 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="transform transition-all duration-300"
+              >
+                <Link 
+                  to={`/news/${n.slug}`} 
+                  className="group block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:border-brand-teal/50 dark:hover:border-brand-teal/50 hover:shadow-xl hover:shadow-brand-teal/10 transition-all duration-300 overflow-hidden relative"
+                >
+                  {/* Subtle gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-teal/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="relative overflow-hidden rounded-xl mb-4">
+                      <img
+                        src={(Array.isArray(n.imageIds) && n.imageIds.length > 0)
+                          ? contentApi.getNewsImageUrl(n.imageIds[0])
+                          : (n.imageUrl || PLACEHOLDER_IMG)}
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMG; }}
+                        alt={n.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    
+                    <h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg leading-tight group-hover:text-brand-teal transition-colors duration-300 line-clamp-2">
+                      {n.title}
+                    </h3>
+                    
+                    {n.excerpt && (
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mt-3 line-clamp-3 leading-relaxed">
+                        {n.excerpt}
+                      </p>
+                    )}
+                    
+                    <div className="mt-4 flex items-center text-brand-teal font-medium text-sm group-hover:text-teal-600 transition-colors duration-300">
+                      <span>Read more</span>
+                      <motion.svg 
+                        className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </motion.svg>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
         )}
-      </section>
+        </div>
+      </motion.section>
     </div>
   );
 };

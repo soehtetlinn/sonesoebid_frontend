@@ -13,10 +13,10 @@ This contains everything you need to run your app locally.
 
 ## Deploy (Netlify)
 
-- Base directory: `sonesoebid_frontend`
+- Base directory: `shl-hub-frontend`
 - Build command: `npm ci && npm run build`
 - Publish directory: `dist`
 - Env vars:
-  - `VITE_API_URL` = `https://sonesoebid-server.onrender.com`
+  - `VITE_API_URL` = `https://shl-hub-server.onrender.com`
 
 You can copy `.env.production.example` to your Netlify environment variables.

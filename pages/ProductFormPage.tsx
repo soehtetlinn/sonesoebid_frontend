@@ -95,11 +95,11 @@ const ProductFormPage: React.FC = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
-          <input type="text" name="title" id="title" value={product.title} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700" />
+          <input type="text" name="title" id="title" value={product.title} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-teal focus:border-brand-teal dark:bg-gray-700" />
         </div>
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-          <textarea name="description" id="description" value={product.description} onChange={handleChange} required rows={4} className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700" />
+          <textarea name="description" id="description" value={product.description} onChange={handleChange} required rows={4} className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-teal focus:border-brand-teal dark:bg-gray-700" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -112,13 +112,13 @@ const ProductFormPage: React.FC = () => {
             </div>
             <div>
                 <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location</label>
-                <input type="text" name="location" id="location" value={product.location} onChange={handleChange} required placeholder="e.g. New York, NY" className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700" />
+                <input type="text" name="location" id="location" value={product.location} onChange={handleChange} required placeholder="e.g. New York, NY" className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-teal focus:border-brand-teal dark:bg-gray-700" />
             </div>
         </div>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label htmlFor="condition" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Condition</label>
-                <select name="condition" id="condition" value={product.condition} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700">
+                <select name="condition" id="condition" value={product.condition} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-teal focus:border-brand-teal dark:bg-gray-700">
                     <option value={Condition.NEW}>New</option>
                     <option value={Condition.USED}>Used</option>
                 </select>
