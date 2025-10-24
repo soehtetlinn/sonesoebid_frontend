@@ -76,8 +76,8 @@ const AdminCategoryManagementPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
-      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
+    <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800">
+      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-800 pb-4">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Category Management</h1>
         <button 
           onClick={() => setCreating(true)} 
@@ -90,7 +90,7 @@ const AdminCategoryManagementPage: React.FC = () => {
       {/* Create Category Modal */}
       {creating && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md border dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-full max-w-md border dark:border-gray-800">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Create New Category</h2>
             <form onSubmit={handleCreateCategory} className="space-y-4">
               <div>
@@ -103,7 +103,7 @@ const AdminCategoryManagementPage: React.FC = () => {
                   value={newCategory.name}
                   onChange={(e) => setNewCategory(prev => ({ ...prev, name: e.target.value }))}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-800 dark:text-white"
                   placeholder="Enter category name"
                 />
               </div>
@@ -116,7 +116,7 @@ const AdminCategoryManagementPage: React.FC = () => {
                   value={newCategory.description}
                   onChange={(e) => setNewCategory(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-800 dark:text-white"
                   placeholder="Enter category description (optional)"
                 />
               </div>
@@ -146,7 +146,7 @@ const AdminCategoryManagementPage: React.FC = () => {
       {/* Edit Category Modal */}
       {editing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md border dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-full max-w-md border dark:border-gray-800">
             <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Edit Category</h2>
             <form onSubmit={handleUpdateCategory} className="space-y-4">
               <div>
@@ -159,7 +159,7 @@ const AdminCategoryManagementPage: React.FC = () => {
                   value={editCategory.name}
                   onChange={(e) => setEditCategory(prev => ({ ...prev, name: e.target.value }))}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-800 dark:text-white"
                   placeholder="Enter category name"
                 />
               </div>
@@ -172,7 +172,7 @@ const AdminCategoryManagementPage: React.FC = () => {
                   value={editCategory.description}
                   onChange={(e) => setEditCategory(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-brand-blue focus:border-brand-blue dark:bg-gray-800 dark:text-white"
                   placeholder="Enter category description (optional)"
                 />
               </div>
@@ -204,7 +204,7 @@ const AdminCategoryManagementPage: React.FC = () => {
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-transparent">
-            <thead className="bg-gray-200 dark:bg-gray-700">
+            <thead className="bg-gray-200 dark:bg-gray-800">
               <tr>
                 <th className="text-left py-2 px-4">Name</th>
                 <th className="text-left py-2 px-4">Description</th>
@@ -213,7 +213,7 @@ const AdminCategoryManagementPage: React.FC = () => {
             </thead>
             <tbody>
               {categories.length > 0 ? categories.map(category => (
-                <tr key={category.id} className="border-b border-gray-200 dark:border-gray-700">
+                <tr key={category.id} className="border-b border-gray-200 dark:border-gray-800">
                   <td className="py-2 px-4 font-medium text-gray-800 dark:text-gray-100">{category.name}</td>
                   <td className="py-2 px-4 text-gray-600 dark:text-gray-400">
                     {category.description || 'No description'}

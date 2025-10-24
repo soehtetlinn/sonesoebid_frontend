@@ -11,7 +11,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const isAuction = product.listingType === ListingType.AUCTION;
   
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 flex flex-col border border-transparent dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 flex flex-col border border-transparent dark:border-gray-800">
       <Link to={`/product/${product.id}`} className="block relative">
         <img src={product.imageUrl} alt={product.title} className="w-full h-56 object-cover" />
         <span className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold text-white rounded-full ${isAuction ? 'bg-brand-red' : 'bg-brand-green'}`}>

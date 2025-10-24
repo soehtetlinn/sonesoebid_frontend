@@ -52,16 +52,16 @@ const DisputeCenterPage: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">File a New Dispute</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="orderId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Order ID</label>
-            <input type="text" id="orderId" value={orderId} onChange={(e) => setOrderId(e.target.value)} required className="mt-1 block w-full px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700" />
+            <input type="text" id="orderId" value={orderId} onChange={(e) => setOrderId(e.target.value)} required className="mt-1 block w-full px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800" />
           </div>
           <div>
             <label htmlFor="reason" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Reason for Dispute</label>
-            <textarea id="reason" value={reason} onChange={(e) => setReason(e.target.value)} required rows={4} className="mt-1 block w-full px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700" placeholder="e.g., Item not received, item not as described..."></textarea>
+            <textarea id="reason" value={reason} onChange={(e) => setReason(e.target.value)} required rows={4} className="mt-1 block w-full px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800" placeholder="e.g., Item not received, item not as described..."></textarea>
           </div>
           {message && <p className="text-sm">{message}</p>}
           <button type="submit" disabled={submitting} className="px-4 py-2 bg-brand-red text-white font-bold rounded-md hover:bg-red-700 disabled:bg-gray-400">
@@ -70,7 +70,7 @@ const DisputeCenterPage: React.FC = () => {
         </form>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">My Disputes</h2>
         {loading ? <Spinner /> : (
             <div className="space-y-4">

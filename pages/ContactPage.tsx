@@ -61,7 +61,7 @@ const ContactPage: React.FC = () => {
               <span className="bg-brand-primary text-white px-3 py-1 rounded text-sm font-bold">FORM</span>
               SEND US A MESSAGE
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -75,7 +75,7 @@ const ContactPage: React.FC = () => {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-800 dark:text-white"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -90,7 +90,7 @@ const ContactPage: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-800 dark:text-white"
                       placeholder="Enter your email address"
                     />
                   </div>
@@ -106,7 +106,7 @@ const ContactPage: React.FC = () => {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-800 dark:text-white"
                     placeholder="What is this about?"
                   />
                 </div>
@@ -121,7 +121,7 @@ const ContactPage: React.FC = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent dark:bg-gray-800 dark:text-white"
                     placeholder="Tell us how we can help you..."
                   />
                 </div>
@@ -142,7 +142,7 @@ const ContactPage: React.FC = () => {
               CONTACT INFORMATION
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800 text-center">
                 <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-white font-bold text-xl">S</span>
                 </div>
@@ -150,7 +150,7 @@ const ContactPage: React.FC = () => {
                 <p className="text-gray-600 dark:text-gray-300 mb-2">Technical assistance and general inquiries</p>
                 <p className="text-brand-primary font-semibold">support@shltechent.com</p>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800 text-center">
                 <div className="w-16 h-16 bg-brand-secondary rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-white font-bold text-xl">B</span>
                 </div>
@@ -158,7 +158,7 @@ const ContactPage: React.FC = () => {
                 <p className="text-gray-600 dark:text-gray-300 mb-2">Partnerships and business opportunities</p>
                 <p className="text-brand-primary font-semibold">business@shltechent.com</p>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800 text-center">
                 <div className="w-16 h-16 bg-brand-accent rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-white font-bold text-xl">M</span>
                 </div>
@@ -173,7 +173,7 @@ const ContactPage: React.FC = () => {
         {/* Sidebar */}
         <aside className="lg:col-span-1">
           {/* Quick Contact */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-primary to-brand-secondary p-4">
               <h3 className="text-xl font-bold text-white">QUICK CONTACT</h3>
             </div>
@@ -194,7 +194,7 @@ const ContactPage: React.FC = () => {
           </div>
 
           {/* Response Time */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-secondary to-brand-accent p-4">
               <h3 className="text-lg font-bold text-white">RESPONSE TIME</h3>
             </div>
@@ -215,7 +215,7 @@ const ContactPage: React.FC = () => {
           </div>
 
           {/* Office Hours */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
             <div className="bg-gradient-to-r from-brand-accent to-brand-primary p-4">
               <h3 className="text-lg font-bold text-white">OFFICE HOURS</h3>
             </div>

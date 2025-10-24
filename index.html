@@ -39,7 +39,7 @@
               'brand-primary': '#534133',
               'brand-secondary': '#95684C', 
               'brand-accent': '#BF9663',
-              'brand-dark': '#1C1F21',
+              'brand-dark': '#000000',
               'brand-light': '#BDB7AF',
               'brand-teal': '#65A9AD',
               'brand-gold': '#BF9663',
@@ -47,7 +47,11 @@
               'brand-red': '#d93132',
               'brand-green': '#69b425',
               // alias old name to new palette for compatibility
-              'brand-blue': '#534133'
+              'brand-blue': '#534133',
+              // Custom black variants for dark mode
+              'dark-bg': '#000000',
+              'dark-surface': '#111111',
+              'dark-border': '#333333'
             },
           },
         },
@@ -66,7 +70,7 @@
 </script>
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+  <body class="bg-gray-100 dark:bg-black text-gray-800 dark:text-gray-200 transition-colors duration-300">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

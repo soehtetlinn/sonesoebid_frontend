@@ -42,7 +42,7 @@ const AboutPage: React.FC = () => {
               <span className="bg-brand-primary text-white px-3 py-1 rounded text-sm font-bold">MISSION</span>
               OUR MISSION
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 At SHL Hub, we believe in creating a platform where commerce meets journalism. 
                 Our mission is to provide a secure, transparent marketplace while delivering 
@@ -62,7 +62,7 @@ const AboutPage: React.FC = () => {
               OUR PRINCIPLES
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-primary rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">T</span>
                 </div>
@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
                   We ensure all transactions are conducted with full disclosure.
                 </p>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-secondary rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">S</span>
                 </div>
@@ -82,7 +82,7 @@ const AboutPage: React.FC = () => {
                   are safeguarded with industry-leading security measures.
                 </p>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-accent rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">Q</span>
                 </div>
@@ -101,7 +101,7 @@ const AboutPage: React.FC = () => {
               <span className="bg-brand-accent text-white px-3 py-1 rounded text-sm font-bold">STORY</span>
               OUR STORY
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 Founded with the vision of creating a comprehensive platform that serves both 
                 commerce and information needs, SHL Hub has grown from a simple marketplace 
@@ -123,7 +123,7 @@ const AboutPage: React.FC = () => {
         {/* Sidebar */}
         <aside className="lg:col-span-1">
           {/* Quick Facts */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-primary to-brand-secondary p-4">
               <h3 className="text-xl font-bold text-white">QUICK FACTS</h3>
             </div>
@@ -148,7 +148,7 @@ const AboutPage: React.FC = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
             <div className="bg-gradient-to-r from-brand-secondary to-brand-accent p-4">
               <h3 className="text-lg font-bold text-white">GET IN TOUCH</h3>
             </div>

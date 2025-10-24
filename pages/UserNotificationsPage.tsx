@@ -23,8 +23,8 @@ const UserNotificationsPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700 max-w-4xl mx-auto">
-      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
+    <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800 max-w-4xl mx-auto">
+      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-800 pb-4">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Notifications</h1>
         {unreadCount > 0 && (
           <button 
@@ -43,7 +43,7 @@ const UserNotificationsPage: React.FC = () => {
                 to={notification.type === NotificationType.NEW_MESSAGE ? `/dashboard/messages/${notification.relatedId}` : `/product/${notification.relatedId}`}
                 key={notification.id}
                 onClick={() => markAsRead(notification.id)}
-                className={`block p-4 rounded-lg border-l-4 ${notification.isRead ? 'bg-gray-50 dark:bg-gray-700/50 border-gray-300 dark:border-gray-600' : 'bg-blue-50 dark:bg-blue-900/20 border-brand-blue'}`}
+                className={`block p-4 rounded-lg border-l-4 ${notification.isRead ? 'bg-gray-50 dark:bg-gray-800/50 border-gray-300 dark:border-gray-600' : 'bg-blue-50 dark:bg-blue-900/20 border-brand-blue'}`}
             >
                 <div className="flex items-start space-x-4">
                     <span className="text-2xl mt-1">{getIcon(notification.type)}</span>

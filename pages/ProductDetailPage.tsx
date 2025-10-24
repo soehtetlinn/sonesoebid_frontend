@@ -123,7 +123,7 @@ const ProductDetailPage: React.FC = () => {
   const highestBidder = product.bids.length > 0 ? product.bids.sort((a,b) => b.maxBid - a.maxBid)[0] : null;
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
+    <div className="bg-white dark:bg-black p-8 rounded-lg shadow-xl border dark:border-gray-800">
       <div className="product-grid">
         <div>
           <div className="ui-card" style={{ padding: 12 }}>
@@ -177,7 +177,7 @@ const ProductDetailPage: React.FC = () => {
                     <label className="font-semibold text-sm">Place Maximum Bid (Proxy Bidding):</label>
                     <div className="flex items-center space-x-2">
                         <span className="text-lg font-semibold">$</span>
-                        <input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} placeholder={`min $${minBid.toFixed(2)}`} step="1.00" min={minBid} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-500 rounded-md focus:outline-none focus:border-brand-teal dark:bg-gray-800" disabled={!isAuthenticated || isSubmitting}/>
+                        <input type="number" value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} placeholder={`min $${minBid.toFixed(2)}`} step="1.00" min={minBid} className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-500 rounded-md focus:outline-none focus:border-brand-teal dark:bg-black" disabled={!isAuthenticated || isSubmitting}/>
                         <button type="submit" disabled={!isAuthenticated || isSubmitting} className="ui-btn ui-btn-cta" style={{ width:'auto' }}>
                             {isSubmitting ? 'Placing...' : 'Place Bid'}
                         </button>
@@ -214,11 +214,11 @@ const ProductDetailPage: React.FC = () => {
       
       {isAuction && (
       <div className="mt-12">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 border-b border-gray-300 dark:border-gray-700 pb-2">Bid History</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 border-b border-gray-300 dark:border-gray-800 pb-2">Bid History</h2>
         {product.bids.length > 0 ? (
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-transparent">
-                    <thead className="bg-gray-200 dark:bg-gray-700">
+                    <thead className="bg-gray-200 dark:bg-gray-900">
                         <tr>
                             <th className="text-left py-2 px-4">Bidder</th>
                             <th className="text-left py-2 px-4">Date</th>
@@ -226,7 +226,7 @@ const ProductDetailPage: React.FC = () => {
                     </thead>
                     <tbody>
                         {product.bids.slice().sort((a,b) => +new Date(b.timestamp) - +new Date(a.timestamp)).map((bid: Bid) => (
-                            <tr key={bid.id} className="border-b border-gray-200 dark:border-gray-700">
+                            <tr key={bid.id} className="border-b border-gray-200 dark:border-gray-800">
                                 <td className="py-2 px-4 font-medium">{bid.username}</td>
                                 <td className="py-2 px-4 text-gray-600 dark:text-gray-400">{new Date(bid.timestamp).toLocaleString()}</td>
                             </tr>

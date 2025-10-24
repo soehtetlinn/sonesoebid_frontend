@@ -65,7 +65,7 @@ const NewsListPage: React.FC = () => {
         <div className="space-y-8">
           {/* Main Story Section - Fox News Hero Style */}
           {mainStory && (
-            <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+            <section className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <Link to={`/news/${mainStory.slug}`} className="block group">
                 <div className="relative">
                   <img
@@ -114,7 +114,7 @@ const NewsListPage: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {topStories.map((story, index) => (
                   <Link key={story.id} to={`/news/${story.slug}`} className="group">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                       <div className="relative">
                         <img
                           src={(Array.isArray(story.imageIds) && story.imageIds.length > 0) 
@@ -170,7 +170,7 @@ const NewsListPage: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                 {trendingNews.map((story, index) => (
                   <Link key={story.id} to={`/news/${story.slug}`} className="group">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                       <div className="relative">
                         <img
                           src={(Array.isArray(story.imageIds) && story.imageIds.length > 0) 
@@ -218,7 +218,7 @@ const NewsListPage: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {moreStories.map((story) => (
                   <Link key={story.id} to={`/news/${story.slug}`} className="group">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                       <div className="relative">
                         <img
                           src={(Array.isArray(story.imageIds) && story.imageIds.length > 0) 

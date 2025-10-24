@@ -14,7 +14,7 @@ const AdminFxPage: React.FC = () => {
   useEffect(() => { fxApi.listAdmin().then(setList).catch(()=>setList([])); }, []);
 
   if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
-    return <div className="p-6 bg-white dark:bg-gray-800 rounded">Access denied</div>;
+    return <div className="p-6 bg-white dark:bg-gray-900 rounded">Access denied</div>;
   }
 
   const parseAndSave = async (e: React.FormEvent) => {
@@ -31,25 +31,25 @@ const AdminFxPage: React.FC = () => {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Currency Exchange Management</h1>
 
-      <form onSubmit={parseAndSave} className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 space-y-4">
+      <form onSubmit={parseAndSave} className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
             <label className="block text-sm mb-1">Base</label>
-            <input value={base} readOnly className="w-full px-3 py-2 border rounded dark:bg-gray-700 bg-gray-100 dark:bg-gray-600 cursor-not-allowed" />
+            <input value={base} readOnly className="w-full px-3 py-2 border rounded dark:bg-gray-800 bg-gray-100 dark:bg-gray-600 cursor-not-allowed" />
           </div>
           <div>
             <label className="block text-sm mb-1">Quote</label>
-            <input value={quote} readOnly className="w-full px-3 py-2 border rounded dark:bg-gray-700 bg-gray-100 dark:bg-gray-600 cursor-not-allowed" />
+            <input value={quote} readOnly className="w-full px-3 py-2 border rounded dark:bg-gray-800 bg-gray-100 dark:bg-gray-600 cursor-not-allowed" />
           </div>
         </div>
         <div>
           <label className="block text-sm mb-1">Paste Text Message</label>
-          <textarea value={text} onChange={(e)=>setText(e.target.value)} rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-700" placeholder="Paste Myanmar text here..." />
+          <textarea value={text} onChange={(e)=>setText(e.target.value)} rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-800" placeholder="Paste Myanmar text here..." />
         </div>
         <button type="submit" disabled={loading} className="px-4 py-2 bg-purple-600 text-white rounded disabled:opacity-50">{loading? 'Parsing...' : 'Parse & Save'}</button>
       </form>
 
-      <div className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800">
         <h2 className="text-xl font-semibold mb-4">Recent Rates</h2>
         <div className="divide-y dark:divide-gray-700">
           {list.map((it)=> (

@@ -130,8 +130,8 @@ const UserProfilePage: React.FC = () => {
   const averageRating = calculateAverageRating(user.reviews);
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700 max-w-4xl mx-auto">
-      <div className="flex justify-between items-start mb-8 border-b dark:border-gray-700 pb-6">
+    <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800 max-w-4xl mx-auto">
+      <div className="flex justify-between items-start mb-8 border-b dark:border-gray-800 pb-6">
         <div className="flex items-center space-x-6">
             <div className="w-24 h-24 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center text-4xl font-bold text-gray-800 dark:text-gray-100">
               {user.username.charAt(0).toUpperCase()}
@@ -186,54 +186,54 @@ const UserProfilePage: React.FC = () => {
         <form onSubmit={handleFormSubmit} className="space-y-4 mb-8">
             <div>
                 <label className="block font-semibold">Username</label>
-                <input type="text" name="username" value={formData.username} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700 ${errors.username ? 'border-brand-red' : ''}`}/>
+                <input type="text" name="username" value={formData.username} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800 ${errors.username ? 'border-brand-red' : ''}`}/>
                 {errors.username && <p className="text-brand-red text-sm mt-1">{errors.username}</p>}
             </div>
             <div>
                 <label className="block font-semibold">Email</label>
-                <input type="email" name="email" value={formData.email} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700 ${errors.email ? 'border-brand-red' : ''}`}/>
+                <input type="email" name="email" value={formData.email} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800 ${errors.email ? 'border-brand-red' : ''}`}/>
                 {errors.email && <p className="text-brand-red text-sm mt-1">{errors.email}</p>}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block font-semibold">First Name</label>
-                <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="firstName" value={formData.firstName} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
               <div>
                 <label className="block font-semibold">Last Name</label>
-                <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="lastName" value={formData.lastName} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
             </div>
             <div>
               <label className="block font-semibold">Phone</label>
-              <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700 ${errors.phone ? 'border-brand-red' : ''}`}/>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800 ${errors.phone ? 'border-brand-red' : ''}`}/>
               {errors.phone && <p className="text-brand-red text-sm mt-1">{errors.phone}</p>}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block font-semibold">Address Line 1</label>
-                <input type="text" name="address_line1" value={formData.address_line1} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="address_line1" value={formData.address_line1} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
               <div>
                 <label className="block font-semibold">Address Line 2</label>
-                <input type="text" name="address_line2" value={formData.address_line2} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="address_line2" value={formData.address_line2} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
               <div>
                 <label className="block font-semibold">City</label>
-                <input type="text" name="address_city" value={formData.address_city} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="address_city" value={formData.address_city} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
               <div>
                 <label className="block font-semibold">State/Province</label>
-                <input type="text" name="address_state" value={formData.address_state} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="address_state" value={formData.address_state} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
               <div>
                 <label className="block font-semibold">Postal Code</label>
-                <input type="text" name="address_postalCode" value={formData.address_postalCode} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700 ${errors.address_postalCode ? 'border-brand-red' : ''}`}/>
+                <input type="text" name="address_postalCode" value={formData.address_postalCode} onChange={handleInputChange} className={`w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800 ${errors.address_postalCode ? 'border-brand-red' : ''}`}/>
                 {errors.address_postalCode && <p className="text-brand-red text-sm mt-1">{errors.address_postalCode}</p>}
               </div>
               <div>
                 <label className="block font-semibold">Country</label>
-                <input type="text" name="address_country" value={formData.address_country} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-700"/>
+                <input type="text" name="address_country" value={formData.address_country} onChange={handleInputChange} className="w-full mt-1 px-3 py-2 border dark:border-gray-600 rounded-md dark:bg-gray-800"/>
               </div>
             </div>
             <div className="flex justify-end space-x-2">
@@ -246,7 +246,7 @@ const UserProfilePage: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Feedback & Reviews</h2>
           <div className="space-y-6">
             {user.reviews.length > 0 ? user.reviews.map(review => (
-              <div key={review.id} className="p-4 border-l-4 border-brand-blue bg-gray-50 dark:bg-gray-700/50 rounded-r-lg">
+              <div key={review.id} className="p-4 border-l-4 border-brand-blue bg-gray-50 dark:bg-gray-800/50 rounded-r-lg">
                 <div className="flex justify-between items-center mb-2">
                   <StarRating rating={review.rating} />
                   <span className="text-sm text-gray-500 dark:text-gray-400">{new Date(review.timestamp).toLocaleDateString()}</span>

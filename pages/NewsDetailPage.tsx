@@ -91,7 +91,7 @@ const NewsDetailPage: React.FC = () => {
             </h1>
 
             {/* Author and Meta Info */}
-            <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
               <div className="flex items-center gap-4">
                 {item.author && (
                   <div className="flex items-center gap-3">
@@ -207,15 +207,15 @@ const NewsDetailPage: React.FC = () => {
           </div>
 
           {/* Article Footer */}
-          <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <footer className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <span className="text-sm text-gray-600 dark:text-gray-400">Tags:</span>
                 <div className="flex gap-2">
-                  <span className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">
+                  <span className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">
                     Breaking News
                   </span>
-                  <span className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">
+                  <span className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-sm">
                     Latest Updates
                   </span>
                 </div>
@@ -230,7 +230,7 @@ const NewsDetailPage: React.FC = () => {
         {/* Sidebar */}
         <aside className="lg:col-span-1">
           {/* Trending Stories */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-primary to-brand-secondary p-4">
               <h3 className="text-xl font-bold text-white flex items-center gap-2">
                 <span className="bg-red-600 px-2 py-1 rounded text-sm">LIVE</span>
@@ -245,7 +245,7 @@ const NewsDetailPage: React.FC = () => {
                       <img
                         src={(Array.isArray(t.imageIds) && t.imageIds.length > 0) ? contentApi.getNewsImageUrl(t.imageIds[0]) : (t.imageUrl || PLACEHOLDER_IMG)}
                         onError={(e) => { (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMG; }}
-                        className="w-16 h-12 object-cover rounded border dark:border-gray-700"
+                        className="w-16 h-12 object-cover rounded border dark:border-gray-800"
                       />
                       <div className="absolute -top-1 -left-1 bg-red-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">
                         {index + 1}
@@ -267,25 +267,25 @@ const NewsDetailPage: React.FC = () => {
           </div>
 
           {/* Related Stories */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
             <div className="bg-gradient-to-r from-brand-secondary to-brand-accent p-4">
               <h3 className="text-lg font-bold text-white">RELATED STORIES</h3>
             </div>
             <div className="p-4">
               <div className="space-y-3">
-                <Link to="/news" className="block p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                <Link to="/news" className="block p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm line-clamp-2">
                     More breaking news updates
                   </h4>
                   <p className="text-xs text-gray-500 mt-1">Latest developments</p>
                 </Link>
-                <Link to="/news" className="block p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                <Link to="/news" className="block p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm line-clamp-2">
                     Expert analysis and commentary
                   </h4>
                   <p className="text-xs text-gray-500 mt-1">In-depth coverage</p>
                 </Link>
-                <Link to="/news" className="block p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                <Link to="/news" className="block p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
                   <h4 className="font-semibold text-gray-900 dark:text-gray-100 text-sm line-clamp-2">
                     Live updates and reactions
                   </h4>

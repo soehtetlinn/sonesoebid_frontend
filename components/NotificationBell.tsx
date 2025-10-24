@@ -59,7 +59,7 @@ const NotificationBell: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-900 rounded-md shadow-lg border border-gray-200 dark:border-gray-800 z-50">
           <div className="p-3 border-b border-gray-200 dark:border-gray-600">
             <h3 className="font-semibold text-gray-800 dark:text-gray-100">Notifications</h3>
           </div>
@@ -70,7 +70,7 @@ const NotificationBell: React.FC = () => {
                         key={notification.id}
                         // FIX: Pass the entire notification object to the handler.
                         onClick={() => handleNotificationClick(notification)}
-                        className={`p-3 border-b border-gray-100 dark:border-gray-700 flex items-start space-x-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${!notification.isRead ? 'bg-blue-50 dark:bg-gray-900' : ''}`}
+                        className={`p-3 border-b border-gray-100 dark:border-gray-800 flex items-start space-x-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 ${!notification.isRead ? 'bg-blue-50 dark:bg-black' : ''}`}
                     >
                         <span className="text-xl mt-1">{getIcon(notification.type)}</span>
                         <div>
@@ -83,7 +83,7 @@ const NotificationBell: React.FC = () => {
                 <p className="p-4 text-center text-sm text-gray-500 dark:text-gray-400">No notifications yet.</p>
             )}
           </div>
-          <div className="p-2 bg-gray-50 dark:bg-gray-700/50">
+          <div className="p-2 bg-gray-50 dark:bg-gray-800/50">
             <Link to="/dashboard/notifications" onClick={() => setIsOpen(false)} className="block w-full text-center text-sm font-medium text-brand-blue hover:underline">
               View all notifications
             </Link>

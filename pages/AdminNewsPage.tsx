@@ -61,7 +61,7 @@ const AdminNewsPage: React.FC = () => {
   }, [isAuthenticated, user]);
 
   if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
-    return <div className="p-6 bg-white dark:bg-gray-800 rounded">Access denied</div>;
+    return <div className="p-6 bg-white dark:bg-gray-900 rounded">Access denied</div>;
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -199,20 +199,20 @@ const AdminNewsPage: React.FC = () => {
 
       {/* Create form with trending sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <form onSubmit={create} className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 space-y-4 lg:col-span-2">
+        <form onSubmit={create} className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800 space-y-4 lg:col-span-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required className="px-3 py-2 border rounded dark:bg-gray-700" />
-            <input name="slug" value={form.slug} onChange={handleChange} placeholder="Slug (unique)" required className="px-3 py-2 border rounded dark:bg-gray-700" />
-            <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Image URL" className="px-3 py-2 border rounded dark:bg-gray-700" />
+            <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required className="px-3 py-2 border rounded dark:bg-gray-800" />
+            <input name="slug" value={form.slug} onChange={handleChange} placeholder="Slug (unique)" required className="px-3 py-2 border rounded dark:bg-gray-800" />
+            <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Image URL" className="px-3 py-2 border rounded dark:bg-gray-800" />
             <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><input type="checkbox" name="published" checked={!!form.published} onChange={handleChange} /> Published</label>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <select name="categoryId" value={form.categoryId || ''} onChange={handleChange} className="px-3 py-2 border rounded dark:bg-gray-700">
+            <select name="categoryId" value={form.categoryId || ''} onChange={handleChange} className="px-3 py-2 border rounded dark:bg-gray-800">
               <option value="">No category</option>
               {newsCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
             <div className="flex gap-2">
-              <input value={newCatName} onChange={(e) => setNewCatName(e.target.value)} placeholder="New category name" className="flex-1 px-3 py-2 border rounded dark:bg-gray-700" />
+              <input value={newCatName} onChange={(e) => setNewCatName(e.target.value)} placeholder="New category name" className="flex-1 px-3 py-2 border rounded dark:bg-gray-800" />
               <button type="button" className="px-3 py-2 border rounded" onClick={async () => { if (!newCatName.trim()) return; await contentApi.admin.createNewsCategory(newCatName, newCatDesc || undefined); const cats = await contentApi.admin.listNewsCategories(); setNewsCategories(cats); setNewCatName(''); setNewCatDesc(''); }}>Add</button>
             </div>
           </div>
@@ -225,13 +225,13 @@ const AdminNewsPage: React.FC = () => {
           </div>
           <div>
             <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">YouTube URLs or IDs (comma/space/newline separated)</label>
-            <textarea value={videoInput} onChange={(e) => setVideoInput(e.target.value)} rows={2} className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
+            <textarea value={videoInput} onChange={(e) => setVideoInput(e.target.value)} rows={2} className="w-full px-3 py-2 border rounded dark:bg-gray-800" />
           </div>
-          <textarea name="excerpt" value={form.excerpt} onChange={handleChange} placeholder="Excerpt" className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
-          <textarea name="content" value={form.content} onChange={handleChange} placeholder="Content (markdown/plain)" required rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
+          <textarea name="excerpt" value={form.excerpt} onChange={handleChange} placeholder="Excerpt" className="w-full px-3 py-2 border rounded dark:bg-gray-800" />
+          <textarea name="content" value={form.content} onChange={handleChange} placeholder="Content (markdown/plain)" required rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-800" />
           <button type="submit" disabled={loading} className="px-4 py-2 bg-brand-teal text-white rounded disabled:opacity-50">{loading ? 'Publishing...' : 'Create News'}</button>
         </form>
-        <aside className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 lg:col-span-1">
+        <aside className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800 lg:col-span-1">
           <h3 className="text-lg font-semibold mb-4">Trending</h3>
           <div className="divide-y dark:divide-gray-700">
             {trending.map(t => (
@@ -239,7 +239,7 @@ const AdminNewsPage: React.FC = () => {
                 <img
                   src={(Array.isArray(t.imageIds) && t.imageIds.length > 0) ? contentApi.getNewsImageUrl(t.imageIds[0]) : (t.imageUrl || PLACEHOLDER_IMG)}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMG; }}
-                  className="w-20 h-12 object-cover rounded border dark:border-gray-700"
+                  className="w-20 h-12 object-cover rounded border dark:border-gray-800"
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-2">{t.title}</p>
@@ -254,21 +254,21 @@ const AdminNewsPage: React.FC = () => {
 
       {editing && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <form onSubmit={saveEdit} className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 space-y-4 lg:col-span-2">
+          <form onSubmit={saveEdit} className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800 space-y-4 lg:col-span-2">
             <h2 className="text-xl font-semibold">Edit News</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="title" value={editForm.title} onChange={handleEditChange} placeholder="Title" required className="px-3 py-2 border rounded dark:bg-gray-700" />
-            <input name="slug" value={editForm.slug} onChange={handleEditChange} placeholder="Slug (unique)" required className="px-3 py-2 border rounded dark:bg-gray-700" />
-            <input name="imageUrl" value={editForm.imageUrl} onChange={handleEditChange} placeholder="Fallback Image URL" className="px-3 py-2 border rounded dark:bg-gray-700" />
+            <input name="title" value={editForm.title} onChange={handleEditChange} placeholder="Title" required className="px-3 py-2 border rounded dark:bg-gray-800" />
+            <input name="slug" value={editForm.slug} onChange={handleEditChange} placeholder="Slug (unique)" required className="px-3 py-2 border rounded dark:bg-gray-800" />
+            <input name="imageUrl" value={editForm.imageUrl} onChange={handleEditChange} placeholder="Fallback Image URL" className="px-3 py-2 border rounded dark:bg-gray-800" />
             <label className="inline-flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><input type="checkbox" name="published" checked={!!editForm.published} onChange={handleEditChange} /> Published</label>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <select name="categoryId" value={editForm.categoryId || ''} onChange={handleEditChange} className="px-3 py-2 border rounded dark:bg-gray-700">
+            <select name="categoryId" value={editForm.categoryId || ''} onChange={handleEditChange} className="px-3 py-2 border rounded dark:bg-gray-800">
               <option value="">No category</option>
               {newsCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
             <div className="flex gap-2">
-              <input value={newCatName} onChange={(e) => setNewCatName(e.target.value)} placeholder="New category name" className="flex-1 px-3 py-2 border rounded dark:bg-gray-700" />
+              <input value={newCatName} onChange={(e) => setNewCatName(e.target.value)} placeholder="New category name" className="flex-1 px-3 py-2 border rounded dark:bg-gray-800" />
               <button type="button" className="px-3 py-2 border rounded" onClick={async () => { if (!newCatName.trim()) return; await contentApi.admin.createNewsCategory(newCatName, newCatDesc || undefined); const cats = await contentApi.admin.listNewsCategories(); setNewsCategories(cats); setNewCatName(''); setNewCatDesc(''); }}>Add</button>
             </div>
             </div>
@@ -281,10 +281,10 @@ const AdminNewsPage: React.FC = () => {
             </div>
             <div>
             <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">Add YouTube URLs or IDs</label>
-            <textarea value={editVideoInput} onChange={(e) => setEditVideoInput(e.target.value)} rows={2} className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
+            <textarea value={editVideoInput} onChange={(e) => setEditVideoInput(e.target.value)} rows={2} className="w-full px-3 py-2 border rounded dark:bg-gray-800" />
             </div>
-          <textarea name="excerpt" value={editForm.excerpt} onChange={handleEditChange} placeholder="Excerpt" className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
-          <textarea name="content" value={editForm.content} onChange={handleEditChange} placeholder="Content (markdown/plain)" required rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-700" />
+          <textarea name="excerpt" value={editForm.excerpt} onChange={handleEditChange} placeholder="Excerpt" className="w-full px-3 py-2 border rounded dark:bg-gray-800" />
+          <textarea name="content" value={editForm.content} onChange={handleEditChange} placeholder="Content (markdown/plain)" required rows={6} className="w-full px-3 py-2 border rounded dark:bg-gray-800" />
 
           {Array.isArray(editing.imageIds) && editing.imageIds.length > 0 && (
             <div className="">
@@ -319,7 +319,7 @@ const AdminNewsPage: React.FC = () => {
               <button type="button" onClick={cancelEdit} className="px-4 py-2 border rounded">Cancel</button>
             </div>
           </form>
-          <aside className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 lg:col-span-1">
+          <aside className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800 lg:col-span-1">
             <h3 className="text-lg font-semibold mb-4">Trending</h3>
             <div className="divide-y dark:divide-gray-700">
               {trending.map(t => (
@@ -327,7 +327,7 @@ const AdminNewsPage: React.FC = () => {
                   <img
                     src={(Array.isArray(t.imageIds) && t.imageIds.length > 0) ? contentApi.getNewsImageUrl(t.imageIds[0]) : (t.imageUrl || PLACEHOLDER_IMG)}
                     onError={(e) => { (e.currentTarget as HTMLImageElement).src = PLACEHOLDER_IMG; }}
-                    className="w-20 h-12 object-cover rounded border dark:border-gray-700"
+                    className="w-20 h-12 object-cover rounded border dark:border-gray-800"
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 dark:text-gray-100 line-clamp-2">{t.title}</p>
@@ -341,7 +341,7 @@ const AdminNewsPage: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800">
         <h2 className="text-xl font-semibold mb-4">All News</h2>
         <div className="divide-y dark:divide-gray-700">
           {items.map((n) => (

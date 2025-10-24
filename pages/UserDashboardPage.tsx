@@ -21,7 +21,7 @@ const UserDashboardPage: React.FC = () => {
 
   if (!isAuthenticated || !user) {
     return (
-        <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-lg">
+        <div className="text-center p-8 bg-white dark:bg-gray-900 rounded-lg">
             <h2 className="text-2xl font-bold">Access Denied</h2>
             <p className="text-gray-600 dark:text-gray-300">Please log in to view your dashboard.</p>
         </div>
@@ -37,16 +37,16 @@ const UserDashboardPage: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 border-b border-gray-300 dark:border-gray-700 pb-4">Welcome, {user.username}!</h1>
+      <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 border-b border-gray-300 dark:border-gray-800 pb-4">Welcome, {user.username}!</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border dark:border-gray-800">
             <h3 className="font-semibold text-lg text-gray-700 dark:text-gray-200">Account Details</h3>
             <p className="mt-2"><strong>Username:</strong> {user.username}</p>
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Role:</strong> {user.role}</p>
           </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md col-span-2 border dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md col-span-2 border dark:border-gray-800">
             <h3 className="font-semibold text-lg text-gray-700 dark:text-gray-200">Quick Stats</h3>
              <div className="flex justify-around items-center mt-4">
                 <div className="text-center">
@@ -66,21 +66,21 @@ const UserDashboardPage: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border dark:border-gray-800">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Account</h2>
             <div className="space-y-2">
                 <Link to={`/user/${user.id}`} className="block text-brand-teal hover:underline">My Profile</Link>
                 <Link to="/dashboard/orders" className="block text-brand-teal hover:underline">Order History</Link>
             </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border dark:border-gray-800">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Selling</h2>
             <div className="space-y-2">
                 <Link to="/dashboard/products" className="block text-brand-teal hover:underline">My Products</Link>
                  <Link to="/dashboard/product/new" className="block text-brand-teal hover:underline">List a New Item</Link>
             </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border dark:border-gray-800">
             <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Activity</h2>
             <div className="space-y-2">
                 <Link to="/dashboard/watchlist" className="block text-brand-teal hover:underline">Watchlist</Link>
@@ -91,7 +91,7 @@ const UserDashboardPage: React.FC = () => {
 
       {/* News Management for Moderators */}
       {isModeratorOrAdmin(user) && (
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+        <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border dark:border-gray-800">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">News Management</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -107,7 +107,7 @@ const UserDashboardPage: React.FC = () => {
       )}
       
       {/* Recent Notifications */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border dark:border-gray-800">
         <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Recent Notifications</h2>
             {unreadCount > 0 && <span className="px-3 py-1 text-sm font-bold text-white bg-brand-red rounded-full">{unreadCount} New</span>}
@@ -115,7 +115,7 @@ const UserDashboardPage: React.FC = () => {
         {unreadNotifications.length > 0 ? (
             <div className="space-y-3">
                 {unreadNotifications.map(n => (
-                    <Link to={n.type === 'NEW_MESSAGE' ? `/dashboard/messages/${n.relatedId}` : `/product/${n.relatedId}`} key={n.id} className="block p-3 rounded-md bg-blue-50 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-gray-600">
+                    <Link to={n.type === 'NEW_MESSAGE' ? `/dashboard/messages/${n.relatedId}` : `/product/${n.relatedId}`} key={n.id} className="block p-3 rounded-md bg-blue-50 dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600">
                        <p className="font-semibold">{n.title}</p>
                        <p className="text-sm text-gray-600 dark:text-gray-300">{n.message}</p>
                     </Link>

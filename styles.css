@@ -10,6 +10,13 @@
   --max-readable:780px;
 }
 
+/* Dark mode overrides */
+.dark {
+  --color-bg: #000000; /* Pure black for dark mode */
+  --color-primary: #534133; /* Keep original brown for buttons in dark mode */
+  --color-secondary: #e5e5e5; /* Light gray text for dark mode */
+}
+
 body{ background:var(--color-bg); color:var(--color-secondary); }
 
 .ui-btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border-radius:10px; font-weight:700; cursor:pointer; transition:.2s ease; border:2px solid transparent; box-shadow:var(--shadow); }
@@ -19,6 +26,7 @@ body{ background:var(--color-bg); color:var(--color-secondary); }
 .ui-btn-outline{ background:#FEFCF9; border-color:var(--color-primary); color:var(--color-primary); }
 
 .ui-card{ background:#FEFCF9; border:1px solid rgba(83,65,51,.10); border-radius:var(--radius); box-shadow:var(--shadow); }
+.dark .ui-card{ background:#111111; border-color:rgba(255,255,255,.1); }
 .ui-card-hover:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
 
 .ui-article{ width:100%; max-width:var(--max-readable); margin:0 auto; }

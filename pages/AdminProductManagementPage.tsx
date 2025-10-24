@@ -40,8 +40,8 @@ const AdminProductManagementPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
-      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
+    <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800">
+      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-800 pb-4">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Product Management (All)</h1>
         <Link to="/dashboard/product/new" className="bg-brand-green text-white font-bold py-2 px-4 rounded-md hover:bg-green-700">
             Make a Listing
@@ -52,7 +52,7 @@ const AdminProductManagementPage: React.FC = () => {
       {loading ? <Spinner /> : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-transparent">
-            <thead className="bg-gray-200 dark:bg-gray-700">
+            <thead className="bg-gray-200 dark:bg-gray-800">
               <tr>
                 <th className="text-left py-2 px-4">Product</th>
                 <th className="text-left py-2 px-4">Seller</th>
@@ -63,7 +63,7 @@ const AdminProductManagementPage: React.FC = () => {
             </thead>
             <tbody>
               {products.length > 0 ? products.map(product => (
-                <tr key={product.id} className="border-b border-gray-200 dark:border-gray-700">
+                <tr key={product.id} className="border-b border-gray-200 dark:border-gray-800">
                   <td className="py-2 px-4 font-medium">{product.title}</td>
                   <td className="py-2 px-4">{product.seller}</td>
                   <td className="py-2 px-4">${product.currentPrice.toFixed(2)}</td>

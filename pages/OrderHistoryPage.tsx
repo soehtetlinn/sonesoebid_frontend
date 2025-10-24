@@ -43,8 +43,8 @@ const OrderHistoryPage: React.FC = () => {
 
   return (
     <>
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">Order History</h1>
+      <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-800 pb-4">Order History</h1>
 
         {loading ? <Spinner /> : (
           <div className="space-y-6">
@@ -53,7 +53,7 @@ const OrderHistoryPage: React.FC = () => {
               const canLeaveReview = isBuyer ? !order.reviewLeftByBuyer : !order.reviewLeftBySeller;
 
               return (
-              <div key={order.id} className="p-4 border dark:border-gray-700 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0">
+              <div key={order.id} className="p-4 border dark:border-gray-800 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0">
                 <div>
                   <Link to={`/product/${order.productId}`} className="font-semibold text-lg text-brand-blue hover:underline">{order.productTitle}</Link>
                   <p className="text-sm text-gray-500 dark:text-gray-400">

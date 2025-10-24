@@ -15,7 +15,7 @@ const AdminAdsPage: React.FC = () => {
   }, [isAuthenticated, user]);
 
   if (!isAuthenticated || user?.role !== UserRole.ADMIN) {
-    return <div className="p-6 bg-white dark:bg-gray-800 rounded">Access denied</div>;
+    return <div className="p-6 bg-white dark:bg-gray-900 rounded">Access denied</div>;
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -44,13 +44,13 @@ const AdminAdsPage: React.FC = () => {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Manage Advertising</h1>
 
-      <form onSubmit={create} className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700 space-y-4">
+      <form onSubmit={create} className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required className="px-3 py-2 border rounded dark:bg-gray-700" />
-          <input name="advertiser" value={form.advertiser} onChange={handleChange} placeholder="Advertiser" className="px-3 py-2 border rounded dark:bg-gray-700" />
-          <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Image URL" className="px-3 py-2 border rounded dark:bg-gray-700" />
-          <input name="targetUrl" value={form.targetUrl} onChange={handleChange} placeholder="Target URL" required className="px-3 py-2 border rounded dark:bg-gray-700" />
-          <select name="placement" value={form.placement} onChange={handleChange} className="px-3 py-2 border rounded dark:bg-gray-700">
+          <input name="title" value={form.title} onChange={handleChange} placeholder="Title" required className="px-3 py-2 border rounded dark:bg-gray-800" />
+          <input name="advertiser" value={form.advertiser} onChange={handleChange} placeholder="Advertiser" className="px-3 py-2 border rounded dark:bg-gray-800" />
+          <input name="imageUrl" value={form.imageUrl} onChange={handleChange} placeholder="Image URL" className="px-3 py-2 border rounded dark:bg-gray-800" />
+          <input name="targetUrl" value={form.targetUrl} onChange={handleChange} placeholder="Target URL" required className="px-3 py-2 border rounded dark:bg-gray-800" />
+          <select name="placement" value={form.placement} onChange={handleChange} className="px-3 py-2 border rounded dark:bg-gray-800">
             <option value="homepage-hero">Homepage Hero</option>
             <option value="homepage-sidebar">Homepage Sidebar</option>
             <option value="product-list-top">Product List Top</option>
@@ -61,7 +61,7 @@ const AdminAdsPage: React.FC = () => {
         <button type="submit" disabled={loading} className="px-4 py-2 bg-amber-600 text-white rounded disabled:opacity-50">{loading ? 'Saving...' : 'Create Ad'}</button>
       </form>
 
-      <div className="bg-white dark:bg-gray-800 p-6 rounded border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-900 p-6 rounded border dark:border-gray-800">
         <h2 className="text-xl font-semibold mb-4">All Ads</h2>
         <div className="divide-y dark:divide-gray-700">
           {items.map((ad) => (

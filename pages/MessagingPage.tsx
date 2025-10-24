@@ -116,10 +116,10 @@ const MessagingPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-200px)] bg-white dark:bg-gray-800 rounded-lg shadow-xl border dark:border-gray-700 overflow-hidden">
+    <div className="flex h-[calc(100vh-200px)] bg-white dark:bg-gray-900 rounded-lg shadow-xl border dark:border-gray-800 overflow-hidden">
       {/* Conversations List */}
-      <aside className="w-1/3 border-r dark:border-gray-700 overflow-y-auto">
-        <div className="p-4 border-b dark:border-gray-700">
+      <aside className="w-1/3 border-r dark:border-gray-800 overflow-y-auto">
+        <div className="p-4 border-b dark:border-gray-800">
           <h1 className="text-xl font-bold">Messages</h1>
         </div>
         {loadingConvos ? <Spinner /> : (
@@ -132,7 +132,7 @@ const MessagingPage: React.FC = () => {
                 <div 
                     key={convo.id}
                     onClick={() => navigate(`/dashboard/messages/${convo.id}`)}
-                    className={`p-4 cursor-pointer border-l-4 ${convo.id === conversationId ? 'border-brand-blue bg-gray-100 dark:bg-gray-700' : 'border-transparent hover:bg-gray-50 dark:hover:bg-gray-700/50'}`}
+                    className={`p-4 cursor-pointer border-l-4 ${convo.id === conversationId ? 'border-brand-blue bg-gray-100 dark:bg-gray-800' : 'border-transparent hover:bg-gray-50 dark:hover:bg-gray-700/50'}`}
                 >
                     <p className="font-semibold">{otherUsername}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400 truncate">{convo.productTitle}</p>
@@ -148,14 +148,14 @@ const MessagingPage: React.FC = () => {
       <main className="w-2/3 flex flex-col">
         {selectedConversation ? (
           <>
-            <div className="p-4 border-b dark:border-gray-700">
+            <div className="p-4 border-b dark:border-gray-800">
               <h2 className="font-bold text-lg">{selectedConversation.participantUsernames[selectedConversation.participantIds.find(id => id !== user?.id)!]}</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">{selectedConversation.productTitle}</p>
               {selectedConversation.typingByUserId && selectedConversation.typingByUserId !== user?.id && (
                 <p className="text-xs text-brand-blue mt-1">Typing...</p>
               )}
             </div>
-            <div className="flex-grow p-4 overflow-y-auto bg-gray-50 dark:bg-gray-900/50">
+            <div className="flex-grow p-4 overflow-y-auto bg-gray-50 dark:bg-black/50">
               {loadingMsgs ? <Spinner/> : (
                 <div className="space-y-4">
                   {messages.map(msg => (
@@ -170,9 +170,9 @@ const MessagingPage: React.FC = () => {
                 </div>
               )}
             </div>
-            <div className="p-4 border-t dark:border-gray-700 bg-white dark:bg-gray-800">
+            <div className="p-4 border-t dark:border-gray-800 bg-white dark:bg-gray-900">
               <form onSubmit={handleSendMessage} className="flex items-center space-x-2">
-                <input type="text" value={newMessage} onChange={(e) => handleTyping(e.target.value)} placeholder="Type a message..." className="w-full px-4 py-2 border rounded-full dark:bg-gray-700 dark:border-gray-600"/>
+                <input type="text" value={newMessage} onChange={(e) => handleTyping(e.target.value)} placeholder="Type a message..." className="w-full px-4 py-2 border rounded-full dark:bg-gray-800 dark:border-gray-600"/>
                 <button type="submit" className="px-4 py-2 bg-brand-blue text-white rounded-full font-semibold">Send</button>
               </form>
               {/* Read receipt: if the latest message is sent by current user and isRead by recipient */}

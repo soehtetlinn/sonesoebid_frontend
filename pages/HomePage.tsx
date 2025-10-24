@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:via-black dark:to-black">
       {/* Continuous 3D Background for entire page */}
       <div className="fixed inset-0 w-full h-full opacity-20 z-0">
         <ThreeScene />
@@ -98,7 +98,7 @@ const HomePage: React.FC = () => {
           >
             <Link 
               to="/products" 
-              className="group inline-flex items-center px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-brand-teal/20 text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="group inline-flex items-center px-6 py-3 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-brand-teal/20 text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               View All Products
               <motion.svg 
@@ -199,7 +199,7 @@ const HomePage: React.FC = () => {
           >
             <Link 
               to="/news" 
-              className="group inline-flex items-center px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-brand-teal/20 text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="group inline-flex items-center px-6 py-3 bg-white/80 dark:bg-black/80 backdrop-blur-sm border border-brand-teal/20 text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               View All News
               <motion.svg 
@@ -220,8 +220,8 @@ const HomePage: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1 }}
           >
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+            <div className="bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 dark:border-gray-800">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-900 rounded-full flex items-center justify-center">
                 <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                 </svg>
@@ -248,7 +248,7 @@ const HomePage: React.FC = () => {
               >
                 <Link 
                   to={`/news/${n.slug}`} 
-                  className="group block bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 hover:border-brand-teal/50 dark:hover:border-brand-teal/50 hover:shadow-xl hover:shadow-brand-teal/10 transition-all duration-300 overflow-hidden relative"
+                  className="group block bg-white/80 dark:bg-black/80 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/50 dark:border-gray-800/50 hover:border-brand-teal/50 dark:hover:border-brand-teal/50 hover:shadow-xl hover:shadow-brand-teal/10 transition-all duration-300 overflow-hidden relative"
                 >
                   {/* Subtle gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-teal/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

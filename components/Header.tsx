@@ -50,7 +50,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
+      <header className="bg-white dark:bg-black shadow-md sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center" onClick={()=>setMobileMenuOpen(false)}>
@@ -68,7 +68,7 @@ const Header: React.FC = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search for anything..."
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:border-brand-teal dark:focus:border-brand-teal bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:border-brand-teal dark:focus:border-brand-teal bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                 />
                 <button type="submit" className="absolute right-0 top-0 mt-1 mr-1 px-4 py-1.5 bg-brand-teal text-white rounded-full hover:bg-teal-700">
                   Search
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
                   <div className="flex items-center space-x-2">
                     <Link 
                       to={getDashboardLink()} 
-                      className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-md text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600"
+                      className="px-3 py-1 bg-gray-200 dark:bg-gray-900 rounded-md text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-700"
                     >
                       Dashboard
                     </Link>
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
             </nav>
             {/* Mobile menu toggle */}
             <button
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800"
               onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -142,7 +142,7 @@ const Header: React.FC = () => {
         </div>
         {/* Mobile menu panel */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+          <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
             <div className="px-4 py-3 space-y-6">
               {/* Mobile search */}
               <form onSubmit={(e)=>{handleSearch(e); setMobileMenuOpen(false);}} className="relative">
@@ -151,7 +151,7 @@ const Header: React.FC = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search for anything..."
-                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-brand-teal dark:focus:border-brand-teal bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:border-brand-teal dark:focus:border-brand-teal bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                 />
                 <button type="submit" className="absolute right-1 top-1 px-3 py-1 bg-brand-teal text-white rounded-md hover:bg-teal-700 text-sm">
                   Search

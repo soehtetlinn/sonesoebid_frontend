@@ -39,7 +39,7 @@ const TermsOfServicePage: React.FC = () => {
               <span className="bg-brand-primary text-white px-3 py-1 rounded text-sm font-bold">ACCEPTANCE</span>
               ACCEPTANCE OF TERMS
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 By accessing or using SHL Hub, you agree to be bound by these Terms of Service and 
                 our Privacy Policy. If you do not agree to these terms, you may not use our services.
@@ -59,7 +59,7 @@ const TermsOfServicePage: React.FC = () => {
               OUR SERVICES
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-primary rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">M</span>
                 </div>
@@ -71,7 +71,7 @@ const TermsOfServicePage: React.FC = () => {
                   <li>• Benefit from buyer protection programs</li>
                 </ul>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-secondary rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">N</span>
                 </div>
@@ -92,7 +92,7 @@ const TermsOfServicePage: React.FC = () => {
               <span className="bg-brand-accent text-white px-3 py-1 rounded text-sm font-bold">RESPONSIBILITIES</span>
               USER RESPONSIBILITIES
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Acceptable Use</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
@@ -128,7 +128,7 @@ const TermsOfServicePage: React.FC = () => {
               <span className="bg-green-600 text-white px-3 py-1 rounded text-sm font-bold">PAYMENT</span>
               PAYMENT TERMS
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -167,7 +167,7 @@ const TermsOfServicePage: React.FC = () => {
               <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">LIABILITY</span>
               LIABILITY AND DISCLAIMERS
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 We provide our services "as-is" to the extent permitted by law. While we strive to 
                 maintain high standards, we cannot guarantee uninterrupted service or error-free operation.
@@ -195,7 +195,7 @@ const TermsOfServicePage: React.FC = () => {
         {/* Sidebar */}
         <aside className="lg:col-span-1">
           {/* Quick Navigation */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-primary to-brand-secondary p-4">
               <h3 className="text-xl font-bold text-white">QUICK NAVIGATION</h3>
             </div>
@@ -219,7 +219,7 @@ const TermsOfServicePage: React.FC = () => {
           </div>
 
           {/* Legal Contact */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-secondary to-brand-accent p-4">
               <h3 className="text-lg font-bold text-white">LEGAL CONTACT</h3>
             </div>
@@ -232,7 +232,7 @@ const TermsOfServicePage: React.FC = () => {
           </div>
 
           {/* Terms Updates */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
             <div className="bg-gradient-to-r from-brand-accent to-brand-primary p-4">
               <h3 className="text-lg font-bold text-white">TERMS UPDATES</h3>
             </div>

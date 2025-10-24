@@ -40,7 +40,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <span className="bg-brand-primary text-white px-3 py-1 rounded text-sm font-bold">DATA</span>
               INFORMATION WE COLLECT
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 mb-6">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800 mb-6">
               <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Personal Information</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -64,7 +64,7 @@ const PrivacyPolicyPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <h4 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Usage Information</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -96,7 +96,7 @@ const PrivacyPolicyPage: React.FC = () => {
               HOW WE USE YOUR INFORMATION
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-primary rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">S</span>
                 </div>
@@ -108,7 +108,7 @@ const PrivacyPolicyPage: React.FC = () => {
                   <li>• Maintain platform functionality</li>
                 </ul>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
                 <div className="w-12 h-12 bg-brand-secondary rounded-lg flex items-center justify-center mb-4">
                   <span className="text-white font-bold text-xl">I</span>
                 </div>
@@ -129,7 +129,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <span className="bg-brand-accent text-white px-3 py-1 rounded text-sm font-bold">RIGHTS</span>
               YOUR RIGHTS AND CHOICES
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-4">
@@ -168,7 +168,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <span className="bg-red-600 text-white px-3 py-1 rounded text-sm font-bold">SECURITY</span>
               DATA SECURITY
             </h3>
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-800">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 We implement industry-standard security measures to protect your personal information 
                 against unauthorized access, alteration, disclosure, or destruction. These measures 
@@ -201,7 +201,7 @@ const PrivacyPolicyPage: React.FC = () => {
         {/* Sidebar */}
         <aside className="lg:col-span-1">
           {/* Quick Links */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-primary to-brand-secondary p-4">
               <h3 className="text-xl font-bold text-white">QUICK LINKS</h3>
             </div>
@@ -225,7 +225,7 @@ const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           {/* Contact Privacy */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden mb-6">
             <div className="bg-gradient-to-r from-brand-secondary to-brand-accent p-4">
               <h3 className="text-lg font-bold text-white">PRIVACY CONTACT</h3>
             </div>
@@ -238,7 +238,7 @@ const PrivacyPolicyPage: React.FC = () => {
           </div>
 
           {/* Policy Updates */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 overflow-hidden">
             <div className="bg-gradient-to-r from-brand-accent to-brand-primary p-4">
               <h3 className="text-lg font-bold text-white">POLICY UPDATES</h3>
             </div>

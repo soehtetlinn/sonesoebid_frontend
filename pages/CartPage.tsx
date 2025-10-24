@@ -52,8 +52,8 @@ const CartPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl border dark:border-gray-700">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
+    <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-xl border dark:border-gray-800">
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-300 dark:border-gray-800 pb-4">
         Shopping Cart
       </h1>
       {cart.length === 0 ? (
@@ -68,8 +68,8 @@ const CartPage: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-grow">
             {cartBySeller.map(sellerGroup => (
-              <div key={sellerGroup.sellerId} className="mb-6 border dark:border-gray-700 rounded-lg">
-                <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-t-lg">
+              <div key={sellerGroup.sellerId} className="mb-6 border dark:border-gray-800 rounded-lg">
+                <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-t-lg">
                   <h3 className="font-semibold">Seller: <Link to={`/user/${sellerGroup.sellerId}`} className="text-brand-blue hover:underline">{sellerGroup.sellerName}</Link></h3>
                 </div>
                 <div className="divide-y dark:divide-gray-700">
@@ -89,7 +89,7 @@ const CartPage: React.FC = () => {
             ))}
           </div>
           <aside className="w-full lg:w-1/3">
-            <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md border dark:border-gray-600 sticky top-24">
+            <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md border dark:border-gray-600 sticky top-24">
               <h2 className="text-xl font-bold mb-4">Order Summary</h2>
               <div className="flex justify-between mb-2">
                 <span>Subtotal</span>
