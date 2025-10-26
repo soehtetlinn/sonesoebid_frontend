@@ -7,6 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import ThreeScene from '../components/ThreeScene';
+import AnimatedPlanets from '../components/AnimatedPlanets';
+import RealisticSolarSystem from '../components/RealisticSolarSystem';
 import SimpleThreeHero from '../components/SimpleThreeHero';
 
 const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
@@ -36,7 +38,7 @@ const HomePage: React.FC = () => {
     <div className="relative w-full min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-black dark:via-black dark:to-black">
       {/* Continuous 3D Background for entire page */}
       <div className="fixed inset-0 w-full h-full opacity-20 z-0">
-        <ThreeScene />
+        <RealisticSolarSystem />
       </div>
       
       {/* 3D Hero Section - Full Width */}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Sphere, Box, Torus } from '@react-three/drei';
 import { motion } from 'framer-motion';
+import AnimatedPlanets from './AnimatedPlanets';
 
 // Metroid-inspired space shapes
 function AnimatedShapes() {

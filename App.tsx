@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { NotificationProvider } from './contexts/NotificationContext';
@@ -105,9 +105,9 @@ const App: React.FC = () => {
         <NotificationProvider>
           <WatchListProvider>
             <CartProvider>
-              <HashRouter>
+              <BrowserRouter>
                 <PageLayout />
-              </HashRouter>
+              </BrowserRouter>
             </CartProvider>
           </WatchListProvider>
         </NotificationProvider>
