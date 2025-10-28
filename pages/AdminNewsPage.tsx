@@ -27,7 +27,7 @@ function extractYouTubeId(input: string): string | null {
   }
 }
 
-const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
+const PLACEHOLDER_IMG = 'https://placehold.co/600x400@3x.png';
 
 const AdminNewsPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth();

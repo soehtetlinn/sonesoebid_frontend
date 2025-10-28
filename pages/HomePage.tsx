@@ -11,7 +11,7 @@ import AnimatedPlanets from '../components/AnimatedPlanets';
 import RealisticSolarSystem from '../components/RealisticSolarSystem';
 import SimpleThreeHero from '../components/SimpleThreeHero';
 
-const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
+const PLACEHOLDER_IMG = 'https://placehold.co/600x400@3x.png';
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

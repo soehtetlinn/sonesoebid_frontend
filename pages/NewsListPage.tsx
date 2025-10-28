@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { NewsItem } from '../types';
 import { contentApi } from '../services/api';
 
-const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
+const PLACEHOLDER_IMG = 'https://placehold.co/600x400@3x.png';
 
 const NewsListPage: React.FC = () => {
   const [news, setNews] = useState<NewsItem[]>([] as any);

@@ -8,7 +8,7 @@ const NewsDetailPage: React.FC = () => {
   const [item, setItem] = useState<NewsItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [trending, setTrending] = useState<NewsItem[]>([] as any);
-  const PLACEHOLDER_IMG = 'https://via.placeholder.com/800x400?text=News';
+  const PLACEHOLDER_IMG = 'https://placehold.co/600x400@3x.png';
 
   useEffect(() => {
     if (!slug) return;

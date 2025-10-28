@@ -9,6 +9,7 @@ import PageContainer from './components/PageContainer';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AdsPopup from './components/AdsPopup';
 import HomePage from './pages/HomePage';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -58,6 +59,7 @@ const PageLayout: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <AdsPopup />
       <main id="main-content" className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />

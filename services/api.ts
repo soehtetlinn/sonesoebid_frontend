@@ -5,11 +5,98 @@ console.log('API_URL loaded:', API_URL);
 console.log('Environment VITE_API_URL:', (import.meta as any).env?.VITE_API_URL);
 console.log('Build timestamp:', new Date().toISOString());
 
+// Token management
+let accessToken: string | null = null;
+let refreshToken: string | null = null;
+
+// Initialize tokens from localStorage
+const initializeTokens = () => {
+  accessToken = localStorage.getItem('auth_token');
+  refreshToken = localStorage.getItem('auth_refresh_token');
+};
+
+// Save tokens to localStorage
+const saveTokens = (access: string, refresh: string) => {
+  accessToken = access;
+  refreshToken = refresh;
+  localStorage.setItem('auth_token', access);
+  localStorage.setItem('auth_refresh_token', refresh);
+};
+
+// Clear tokens
+const clearTokens = () => {
+  accessToken = null;
+  refreshToken = null;
+  localStorage.removeItem('auth_token');
+  localStorage.removeItem('auth_refresh_token');
+};
+
+// Refresh access token
+const refreshAccessToken = async (): Promise<string | null> => {
+  if (!refreshToken) return null;
+  
+  try {
+    const response = await fetch(`${API_URL}/refresh`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ refreshToken })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      const newAccessToken = data.accessToken || data.token;
+      if (newAccessToken) {
+        accessToken = newAccessToken;
+        localStorage.setItem('auth_token', newAccessToken);
+        return newAccessToken;
+      }
+    }
+  } catch (error) {
+    console.error('Token refresh failed:', error);
+  }
+  
+  // If refresh fails, clear all tokens
+  clearTokens();
+  return null;
+};
+
+// Initialize tokens on module load
+initializeTokens();
+
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const fullUrl = `${API_URL}${path}`;
-  console.log('Making API something call to:', fullUrl);
-  const res = await fetch(fullUrl, { headers: { 'Content-Type': 'application/json' }, ...init });
-  if (!res.ok) throw new Error(await res.text().catch(() => res.statusText));
+  console.log('Making API call to:', fullUrl);
+  
+  // Add authorization header if we have a token
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (accessToken) {
+    headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+  
+  // Merge with any existing headers
+  if (init?.headers) {
+    Object.assign(headers, init.headers);
+  }
+  
+  let res = await fetch(fullUrl, { ...init, headers });
+  
+  // If unauthorized and we have a refresh token, try to refresh
+  if (res.status === 401 && refreshToken && path !== '/refresh') {
+    console.log('Access token expired, attempting refresh...');
+    const newAccessToken = await refreshAccessToken();
+    
+    if (newAccessToken) {
+      // Retry the request with new token
+      headers['Authorization'] = `Bearer ${newAccessToken}`;
+      res = await fetch(fullUrl, { ...init, headers });
+    }
+  }
+  
+  if (!res.ok) {
+    const errorText = await res.text().catch(() => res.statusText);
+    throw new Error(errorText);
+  }
+  
   return res.json();
 }
 
@@ -213,7 +300,7 @@ export const api = {
   login: async (emailOrUsername: string, password: string): Promise<{ user: User | null; error?: string }> => {
     if (API_URL) {
       try {
-        const resp = await http<{ token: string; user: User }>(`/api/login`, { 
+        const resp = await http<{ token: string; accessToken: string; refreshToken: string; user: User }>(`/login`, { 
           method: 'POST', 
           body: JSON.stringify({ 
             email: emailOrUsername.includes('@') ? emailOrUsername : undefined,
@@ -221,7 +308,10 @@ export const api = {
             password 
           }) 
         });
-        localStorage.setItem('auth_token', resp.token);
+        
+        // Save both tokens
+        const accessToken = resp.accessToken || resp.token;
+        saveTokens(accessToken, resp.refreshToken);
         localStorage.setItem('auth_user', JSON.stringify(resp.user));
         return { user: resp.user };
       } catch (e: any) {
@@ -246,10 +336,16 @@ export const api = {
     
     return { user: null, error: 'Invalid credentials' };
   },
+  
+  logout: () => {
+    clearTokens();
+    localStorage.removeItem('auth_user');
+  },
   loginWithGoogle: async (idToken: string): Promise<{ user: User | null; error?: string }> => {
     try {
-      const resp = await http<{ token: string; user: User }>(`/api/auth/google`, { method: 'POST', body: JSON.stringify({ idToken }) });
-      localStorage.setItem('auth_token', resp.token);
+      const resp = await http<{ token: string; accessToken: string; refreshToken: string; user: User }>(`/auth/google`, { method: 'POST', body: JSON.stringify({ idToken }) });
+      const accessToken = resp.accessToken || resp.token;
+      saveTokens(accessToken, resp.refreshToken);
       localStorage.setItem('auth_user', JSON.stringify(resp.user));
       return { user: resp.user };
     } catch (e: any) {
@@ -260,7 +356,7 @@ export const api = {
   register: async (username: string, email: string, password: string, firstName?: string, lastName?: string, phone?: string): Promise<{ user: User | null; error?: string }> => {
     if (API_URL) {
       try {
-        const resp = await http<{ token: string; user: User }>(`/api/register`, { 
+        const resp = await http<{ token: string; accessToken: string; refreshToken: string; user: User }>(`/register`, { 
           method: 'POST', 
           body: JSON.stringify({ 
             username, 
@@ -271,7 +367,8 @@ export const api = {
             phone
           }) 
         });
-        localStorage.setItem('auth_token', resp.token);
+        const accessToken = resp.accessToken || resp.token;
+        saveTokens(accessToken, resp.refreshToken);
         localStorage.setItem('auth_user', JSON.stringify(resp.user));
         return { user: resp.user };
       } catch (e: any) {
@@ -308,7 +405,7 @@ export const api = {
   getProducts: async (filters: any): Promise<Product[]> => {
     if (API_URL) {
       try {
-        const products = await http<Product[]>(`/api/products`);
+        const products = await http<Product[]>(`/products`);
         const withBids = products.map(normalizeProduct);
         let filteredProducts = withBids;
         if (filters?.searchTerm) {
@@ -352,7 +449,7 @@ export const api = {
   },
   getProductById: async (id: string): Promise<Product | null> => {
     if (API_URL) {
-      try { const p = await http<Product>(`/api/products/${id}`); return normalizeProduct(p); } catch { /* fall back to mock */ }
+      try { const p = await http<Product>(`/products/${id}`); return normalizeProduct(p); } catch { /* fall back to mock */ }
     }
     await delay(500);
     const product = MOCK_PRODUCTS.find(p => p.id === id);
@@ -361,8 +458,8 @@ export const api = {
   placeBid: async (productId: string, maxBid: number, user: User): Promise<Product | null> => {
     if (API_URL) {
       try {
-        await http(`/api/products/${productId}/bids`, { method: 'POST', body: JSON.stringify({ userId: user.id, maxBid }) });
-        const p = await http<Product>(`/api/products/${productId}`);
+        await http(`/products/${productId}/bids`, { method: 'POST', body: JSON.stringify({ userId: user.id, maxBid }) });
+        const p = await http<Product>(`/products/${productId}`);
         return normalizeProduct(p);
       } catch {
         return null;
@@ -422,27 +519,27 @@ export const api = {
   },
   getUsers: async (): Promise<User[]> => {
     if (API_URL) {
-      try { return await http<User[]>(`/api/users`); } catch { /* fall back */ }
+      try { return await http<User[]>(`/users`); } catch { /* fall back */ }
     }
     await delay(500);
     return MOCK_USERS;
   },
   createUser: async (data: Partial<User>): Promise<User | null> => {
     if (API_URL) {
-      try { return await http<User>(`/api/users`, { method: 'POST', body: JSON.stringify(data) }); } catch { return null; }
+      try { return await http<User>(`/users`, { method: 'POST', body: JSON.stringify(data) }); } catch { return null; }
     }
     return null;
   },
   deleteUser: async (userId: number): Promise<boolean> => {
     if (API_URL) {
-      try { await http(`/api/users/${userId}`, { method: 'DELETE' }); return true; } catch { return false; }
+      try { await http(`/users/${userId}`, { method: 'DELETE' }); return true; } catch { return false; }
     }
     return false;
   },
   getUserProfile: async (userId: number): Promise<User | null> => {
     if (API_URL) {
       try {
-        const user = await http<User>(`/api/users/${userId}`);
+        const user = await http<User>(`/users/${userId}`);
         const userReviews = [] as Review[]; // reviews endpoint not yet wired; return empty for now
         return { ...user, reviews: userReviews } as User;
       } catch {
@@ -457,13 +554,13 @@ export const api = {
   },
   getUserStats: async (userId: number): Promise<{ activeBids: number; itemsWon: number; watching: number }> => {
     const token = localStorage.getItem('auth_token') || '';
-    return await http<{ activeBids: number; itemsWon: number; watching: number }>(`/api/users/${userId}/stats`, { headers: { 'Authorization': `Bearer ${token}` } });
+    return await http<{ activeBids: number; itemsWon: number; watching: number }>(`/users/${userId}/stats`, { headers: { 'Authorization': `Bearer ${token}` } });
   },
   updateUserProfile: async(userId: number, data: Partial<User>): Promise<User | null> => {
       if (API_URL) {
         try {
           const token = localStorage.getItem('auth_token') || '';
-          const updated = await http<User>(`/api/users/${userId}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify(data) } as any);
+          const updated = await http<User>(`/users/${userId}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify(data) } as any);
           // return with reviews placeholder for UI compatibility
           return { ...updated, reviews: [] } as User;
         } catch {
@@ -484,7 +581,7 @@ export const api = {
   adminResetUserPassword: async (userId: number, newPassword: string): Promise<boolean> => {
     try {
       const token = localStorage.getItem('auth_token') || '';
-      await http(`/api/admin/users/${userId}/password`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ newPassword }) });
+      await http(`/admin/users/${userId}/password`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ newPassword }) });
       return true;
     } catch {
       return false;
@@ -493,7 +590,7 @@ export const api = {
   getProductsByUserId: async (userId: number): Promise<Product[]> => {
     if (API_URL) {
       try {
-        const products = await http<Product[]>(`/api/users/${userId}/products`);
+        const products = await http<Product[]>(`/users/${userId}/products`);
         return products.map(normalizeProduct);
       } catch (e) {
         console.error('Failed to fetch user products from backend:', e);
@@ -506,7 +603,7 @@ export const api = {
   addProduct: async (productData: Omit<Product, 'id' | 'currentPrice' | 'bids' | 'seller'>, user: User): Promise<Product> => {
     if (API_URL) {
       try {
-        const created = await http<Product>(`/api/products`, { method: 'POST', body: JSON.stringify({ ...productData, seller: user.username, currentPrice: productData.startingPrice, userId: user.id }) });
+        const created = await http<Product>(`/products`, { method: 'POST', body: JSON.stringify({ ...productData, seller: user.username, currentPrice: productData.startingPrice, userId: user.id }) });
         return normalizeProduct(created);
       } catch {
         throw new Error('Backend rejected product create. Check required fields.');
@@ -519,7 +616,7 @@ export const api = {
   },
   updateProduct: async (productId: string, productData: Partial<Product>): Promise<Product | null> => {
     if (API_URL) {
-      try { return await http<Product>(`/api/products/${productId}`, { method: 'PATCH', body: JSON.stringify(productData) }); } catch {}
+      try { return await http<Product>(`/products/${productId}`, { method: 'PATCH', body: JSON.stringify(productData) }); } catch {}
     }
     await delay(400);
     const productIndex = MOCK_PRODUCTS.findIndex(p => p.id === productId);
@@ -529,7 +626,7 @@ export const api = {
   },
   deleteProduct: async (productId: string): Promise<boolean> => {
     if (API_URL) {
-      try { await http(`/api/products/${productId}`, { method: 'DELETE' }); return true; } catch { return false; }
+      try { await http(`/products/${productId}`, { method: 'DELETE' }); return true; } catch { return false; }
     }
     await delay(400);
     const initialLength = MOCK_PRODUCTS.length;
@@ -712,7 +809,7 @@ export const api = {
   getConversations: async(userId: number): Promise<Conversation[]> => {
       if (API_URL) {
           try {
-            const list = await http<Conversation[]>(`/api/users/${userId}/conversations`);
+            const list = await http<Conversation[]>(`/users/${userId}/conversations`);
             // normalize lastMessage to avoid undefined access
             return list.map(c => ({ ...c, lastMessage: c.lastMessage || { id: '', senderId: 0, text: '', timestamp: new Date().toISOString() } as any }));
           } catch { /* fall back */ }
@@ -723,7 +820,7 @@ export const api = {
   getMessages: async (conversationId: string): Promise<Message[]> => {
       if (API_URL) {
           try {
-            const msgs = await http<Message[]>(`/api/conversations/${conversationId}/messages`);
+            const msgs = await http<Message[]>(`/conversations/${conversationId}/messages`);
             return Array.isArray(msgs) ? msgs : [];
           } catch { /* fall back */ }
       }
@@ -732,7 +829,7 @@ export const api = {
   },
   sendMessage: async (conversationId: string | null, senderId: number, text: string, recipientId: number, productId: string | null): Promise<Conversation> => {
       if (API_URL) {
-          try { return await http<Conversation>(`/api/messages`, { method: 'POST', body: JSON.stringify({ conversationId, senderId, text, recipientId, productId }) }); } catch { /* fall back */ }
+          try { return await http<Conversation>(`/messages`, { method: 'POST', body: JSON.stringify({ conversationId, senderId, text, recipientId, productId }) }); } catch { /* fall back */ }
       }
       await delay(200);
       let convo: Conversation | undefined;
@@ -816,7 +913,7 @@ export const api = {
   getCategories: async (): Promise<{ id: string; name: string; description?: string }[]> => {
     if (API_URL) {
       try {
-        return await http<{ id: string; name: string; description?: string }[]>(`/api/categories`);
+        return await http<{ id: string; name: string; description?: string }[]>(`/categories`);
       } catch (e) {
         console.error('Failed to fetch categories from backend:', e);
         // fall back to mock
@@ -835,7 +932,7 @@ export const api = {
   createCategory: async (name: string, description?: string): Promise<{ id: string; name: string; description?: string } | null> => {
     if (API_URL) {
       try {
-        return await http<{ id: string; name: string; description?: string }>(`/api/categories`, { 
+        return await http<{ id: string; name: string; description?: string }>(`/categories`, { 
           method: 'POST', 
           body: JSON.stringify({ name, description }) 
         });
@@ -851,7 +948,7 @@ export const api = {
   updateCategory: async (id: string, name: string, description?: string): Promise<{ id: string; name: string; description?: string } | null> => {
     if (API_URL) {
       try {
-        return await http<{ id: string; name: string; description?: string }>(`/api/categories/${id}`, { 
+        return await http<{ id: string; name: string; description?: string }>(`/categories/${id}`, { 
           method: 'PATCH', 
           body: JSON.stringify({ name, description }) 
         });
@@ -866,7 +963,7 @@ export const api = {
   deleteCategory: async (id: string): Promise<boolean> => {
     if (API_URL) {
       try {
-        await http(`/api/categories/${id}`, { method: 'DELETE' });
+        await http(`/categories/${id}`, { method: 'DELETE' });
         return true;
       } catch (e) {
         console.error('Failed to delete category:', e);
@@ -906,90 +1003,90 @@ export const api = {
 export const contentApi = {
   // Public
   getNews: async (): Promise<any[]> => {
-    try { return await http<any[]>(`/api/news`); } catch { return []; }
+    try { return await http<any[]>(`/news`); } catch { return []; }
   },
   searchNews: async (q?: string, categoryId?: string): Promise<any[]> => {
     const params = new URLSearchParams();
     if (q) params.set('q', q);
     if (categoryId) params.set('categoryId', categoryId);
-    try { return await http<any[]>(`/api/news?${params.toString()}`); } catch { return []; }
+    try { return await http<any[]>(`/news?${params.toString()}`); } catch { return []; }
   },
   getNewsBySlug: async (slug: string): Promise<any | null> => {
-    try { return await http<any>(`/api/news/${slug}`); } catch { return null; }
+    try { return await http<any>(`/news/${slug}`); } catch { return null; }
   },
-  getNewsImageUrl: (imageId: string): string => `${API_URL}/api/news-images/${imageId}`,
+  getNewsImageUrl: (imageId: string): string => `${API_URL}/news-images/${imageId}`,
   getYouTubeEmbedUrl: (youtubeId: string): string => `https://www.youtube.com/embed/${youtubeId}`,
   getYouTubeThumbUrl: (youtubeId: string): string => `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
   getAds: async (): Promise<any[]> => {
-    try { return await http<any[]>(`/api/ads`); } catch { return []; }
+    try { return await http<any[]>(`/ads`); } catch { return []; }
   },
   trackImpression: async (id: string): Promise<void> => {
-    try { await http(`/api/ads/${id}/impression`, { method: 'POST' }); } catch {}
+    try { await http(`/ads/${id}/impression`, { method: 'POST' }); } catch {}
   },
   trackClick: async (id: string): Promise<void> => {
-    try { await http(`/api/ads/${id}/click`, { method: 'POST' }); } catch {}
+    try { await http(`/ads/${id}/click`, { method: 'POST' }); } catch {}
   },
   // Admin
   admin: {
     listNewsCategories: async (): Promise<{ id: string; name: string; description?: string }[]> => {
-      return await http<{ id: string; name: string; description?: string }[]>(`/api/news-categories`);
+      return await http<{ id: string; name: string; description?: string }[]>(`/news-categories`);
     },
     getMetrics: async (): Promise<{ totalUsers: number; activeListings: number; totalBidsToday: number; sales24h: number }> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<{ totalUsers: number; activeListings: number; totalBidsToday: number; sales24h: number }>(`/api/admin/metrics`, { headers: { 'Authorization': `Bearer ${token}` } });
+      return await http<{ totalUsers: number; activeListings: number; totalBidsToday: number; sales24h: number }>(`/admin/metrics`, { headers: { 'Authorization': `Bearer ${token}` } });
     },
     createNewsCategory: async (name: string, description?: string) => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http(`/api/admin/news-categories`, { method: 'POST', body: JSON.stringify({ name, description }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http(`/admin/news-categories`, { method: 'POST', body: JSON.stringify({ name, description }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     updateNewsCategory: async (id: string, name: string, description?: string) => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http(`/api/admin/news-categories/${id}`, { method: 'PATCH', body: JSON.stringify({ name, description }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http(`/admin/news-categories/${id}`, { method: 'PATCH', body: JSON.stringify({ name, description }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     deleteNewsCategory: async (id: string) => {
       const token = localStorage.getItem('auth_token') || '';
-      await http(`/api/admin/news-categories/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await http(`/admin/news-categories/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     },
     listNews: async (): Promise<any[]> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any[]>(`/api/admin/news`, { headers: { 'Authorization': `Bearer ${token}` } });
+      return await http<any[]>(`/admin/news`, { headers: { 'Authorization': `Bearer ${token}` } });
     },
     reorderNewsImages: async (id: string, imageIds: string[]): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/news/${id}/images/reorder`, { method: 'PATCH', body: JSON.stringify({ imageIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/news/${id}/images/reorder`, { method: 'PATCH', body: JSON.stringify({ imageIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     addNewsVideos: async (id: string, youtubeIds: string[]): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/news/${id}/videos`, { method: 'POST', body: JSON.stringify({ youtubeIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/news/${id}/videos`, { method: 'POST', body: JSON.stringify({ youtubeIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     deleteNewsVideo: async (id: string, videoDbId: string): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      await http(`/api/admin/news/${id}/videos/${videoDbId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await http(`/admin/news/${id}/videos/${videoDbId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     },
     reorderNewsVideos: async (id: string, videoDbIds: string[]): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/news/${id}/videos/reorder`, { method: 'PATCH', body: JSON.stringify({ videoDbIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/news/${id}/videos/reorder`, { method: 'PATCH', body: JSON.stringify({ videoDbIds }), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     createNews: async (data: any): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/news`, { method: 'POST', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/news`, { method: 'POST', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     updateNews: async (id: string, data: any): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/news/${id}`, { method: 'PATCH', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/news/${id}`, { method: 'PATCH', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     deleteNews: async (id: string): Promise<boolean> => {
       const token = localStorage.getItem('auth_token') || '';
-      await http(`/api/admin/news/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await http(`/admin/news/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     },
     uploadNewsImages: async (id: string, files: File[]): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
       const formData = new FormData();
       files.forEach(f => formData.append('images', f));
-      const res = await fetch(`${API_URL}/api/admin/news/${id}/images`, {
+      const res = await fetch(`${API_URL}/admin/news/${id}/images`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData
@@ -999,24 +1096,24 @@ export const contentApi = {
     },
     deleteNewsImage: async (id: string, imageId: string): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      await http(`/api/admin/news/${id}/images/${imageId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await http(`/admin/news/${id}/images/${imageId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     },
     listAds: async (): Promise<any[]> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any[]>(`/api/admin/ads`, { headers: { 'Authorization': `Bearer ${token}` } });
+      return await http<any[]>(`/admin/ads`, { headers: { 'Authorization': `Bearer ${token}` } });
     },
     createAd: async (data: any): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/ads`, { method: 'POST', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/ads`, { method: 'POST', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     updateAd: async (id: string, data: any): Promise<any> => {
       const token = localStorage.getItem('auth_token') || '';
-      return await http<any>(`/api/admin/ads/${id}`, { method: 'PATCH', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+      return await http<any>(`/admin/ads/${id}`, { method: 'PATCH', body: JSON.stringify(data), headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
     },
     deleteAd: async (id: string): Promise<boolean> => {
       const token = localStorage.getItem('auth_token') || '';
-      await http(`/api/admin/ads/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      await http(`/admin/ads/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
       return true;
     }
   }
@@ -1026,13 +1123,13 @@ export const contentApi = {
 export const fxApi = {
   parse: async (text: string, base = 'USD', quote = 'MMK'): Promise<any> => {
     const token = localStorage.getItem('auth_token') || '';
-    return await http(`/api/admin/fx/parse`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ text, base, quote }) });
+    return await http(`/admin/fx/parse`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ text, base, quote }) });
   },
   listAdmin: async (): Promise<any[]> => {
     const token = localStorage.getItem('auth_token') || '';
-    return await http<any[]>(`/api/admin/fx`, { headers: { 'Authorization': `Bearer ${token}` } });
+    return await http<any[]>(`/admin/fx`, { headers: { 'Authorization': `Bearer ${token}` } });
   },
   latest: async (base = 'THB', quote = 'MMK'): Promise<any | null> => {
-    try { return await http<any>(`/api/fx/latest`); } catch { return null; }
+    try { return await http<any>(`/fx/latest`); } catch { return null; }
   }
 };
